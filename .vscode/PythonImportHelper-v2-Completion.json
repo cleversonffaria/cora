@@ -1,0 +1,127 @@
+[
+    {
+        "label": "os",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "os",
+        "description": "os",
+        "detail": "os",
+        "documentation": {}
+    },
+    {
+        "label": "load_dotenv",
+        "importPath": "dotenv",
+        "description": "dotenv",
+        "isExtraImport": true,
+        "detail": "dotenv",
+        "documentation": {}
+    },
+    {
+        "label": "requests",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "requests",
+        "description": "requests",
+        "detail": "requests",
+        "documentation": {}
+    },
+    {
+        "label": "BOT_PATH",
+        "kind": 5,
+        "importPath": "bot_pr",
+        "description": "bot_pr",
+        "peekOfCode": "BOT_PATH = os.getenv(\"BOT_PATH\")\n# Caminho absoluto do diretório onde está o script\nSCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))\n# Carrega variáveis do .env no mesmo diretório do script\nload_dotenv(dotenv_path=os.path.join(SCRIPT_DIR, \".env\"))\nOPENROUTER_API_KEY = os.getenv(\"OPENROUTER_API_KEY\")\nMODEL = os.getenv(\"MODEL\")\n# Caminho absoluto para os arquivos\nrelatorio_path = os.path.join(SCRIPT_DIR, \"relatorio_pr.txt\")\ndescricao_path = os.path.join(SCRIPT_DIR, \"descricao_pr.txt\")",
+        "detail": "bot_pr",
+        "documentation": {}
+    },
+    {
+        "label": "SCRIPT_DIR",
+        "kind": 5,
+        "importPath": "bot_pr",
+        "description": "bot_pr",
+        "peekOfCode": "SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))\n# Carrega variáveis do .env no mesmo diretório do script\nload_dotenv(dotenv_path=os.path.join(SCRIPT_DIR, \".env\"))\nOPENROUTER_API_KEY = os.getenv(\"OPENROUTER_API_KEY\")\nMODEL = os.getenv(\"MODEL\")\n# Caminho absoluto para os arquivos\nrelatorio_path = os.path.join(SCRIPT_DIR, \"relatorio_pr.txt\")\ndescricao_path = os.path.join(SCRIPT_DIR, \"descricao_pr.txt\")\n# Lê o diff salvo em relatorio_pr.txt\nwith open(relatorio_path, \"r\") as f:",
+        "detail": "bot_pr",
+        "documentation": {}
+    },
+    {
+        "label": "OPENROUTER_API_KEY",
+        "kind": 5,
+        "importPath": "bot_pr",
+        "description": "bot_pr",
+        "peekOfCode": "OPENROUTER_API_KEY = os.getenv(\"OPENROUTER_API_KEY\")\nMODEL = os.getenv(\"MODEL\")\n# Caminho absoluto para os arquivos\nrelatorio_path = os.path.join(SCRIPT_DIR, \"relatorio_pr.txt\")\ndescricao_path = os.path.join(SCRIPT_DIR, \"descricao_pr.txt\")\n# Lê o diff salvo em relatorio_pr.txt\nwith open(relatorio_path, \"r\") as f:\n    diff = f.read()\nprompt = (\n    \"Analise as alterações de código a seguir e gere um relatório detalhado no seguinte formato:\\n\\n\"",
+        "detail": "bot_pr",
+        "documentation": {}
+    },
+    {
+        "label": "MODEL",
+        "kind": 5,
+        "importPath": "bot_pr",
+        "description": "bot_pr",
+        "peekOfCode": "MODEL = os.getenv(\"MODEL\")\n# Caminho absoluto para os arquivos\nrelatorio_path = os.path.join(SCRIPT_DIR, \"relatorio_pr.txt\")\ndescricao_path = os.path.join(SCRIPT_DIR, \"descricao_pr.txt\")\n# Lê o diff salvo em relatorio_pr.txt\nwith open(relatorio_path, \"r\") as f:\n    diff = f.read()\nprompt = (\n    \"Analise as alterações de código a seguir e gere um relatório detalhado no seguinte formato:\\n\\n\"\n    \"Feature: [Título resumido da funcionalidade ou alteração principal]\\n\"",
+        "detail": "bot_pr",
+        "documentation": {}
+    },
+    {
+        "label": "relatorio_path",
+        "kind": 5,
+        "importPath": "bot_pr",
+        "description": "bot_pr",
+        "peekOfCode": "relatorio_path = os.path.join(SCRIPT_DIR, \"relatorio_pr.txt\")\ndescricao_path = os.path.join(SCRIPT_DIR, \"descricao_pr.txt\")\n# Lê o diff salvo em relatorio_pr.txt\nwith open(relatorio_path, \"r\") as f:\n    diff = f.read()\nprompt = (\n    \"Analise as alterações de código a seguir e gere um relatório detalhado no seguinte formato:\\n\\n\"\n    \"Feature: [Título resumido da funcionalidade ou alteração principal]\\n\"\n    \"Resumo: [Breve explicação do que foi implementado ou alterado]\\n\"\n    \"Descrição do problema: [Contextualize o problema ou necessidade antes da alteração]\\n\"",
+        "detail": "bot_pr",
+        "documentation": {}
+    },
+    {
+        "label": "descricao_path",
+        "kind": 5,
+        "importPath": "bot_pr",
+        "description": "bot_pr",
+        "peekOfCode": "descricao_path = os.path.join(SCRIPT_DIR, \"descricao_pr.txt\")\n# Lê o diff salvo em relatorio_pr.txt\nwith open(relatorio_path, \"r\") as f:\n    diff = f.read()\nprompt = (\n    \"Analise as alterações de código a seguir e gere um relatório detalhado no seguinte formato:\\n\\n\"\n    \"Feature: [Título resumido da funcionalidade ou alteração principal]\\n\"\n    \"Resumo: [Breve explicação do que foi implementado ou alterado]\\n\"\n    \"Descrição do problema: [Contextualize o problema ou necessidade antes da alteração]\\n\"\n    \"Solução implementada: [Liste e explique as principais mudanças técnicas, como novas rotas, métodos, entidades, lógica de negócio, validações, etc. Use subtópicos ou marcadores se necessário]\\n\"",
+        "detail": "bot_pr",
+        "documentation": {}
+    },
+    {
+        "label": "prompt",
+        "kind": 5,
+        "importPath": "bot_pr",
+        "description": "bot_pr",
+        "peekOfCode": "prompt = (\n    \"Analise as alterações de código a seguir e gere um relatório detalhado no seguinte formato:\\n\\n\"\n    \"Feature: [Título resumido da funcionalidade ou alteração principal]\\n\"\n    \"Resumo: [Breve explicação do que foi implementado ou alterado]\\n\"\n    \"Descrição do problema: [Contextualize o problema ou necessidade antes da alteração]\\n\"\n    \"Solução implementada: [Liste e explique as principais mudanças técnicas, como novas rotas, métodos, entidades, lógica de negócio, validações, etc. Use subtópicos ou marcadores se necessário]\\n\"\n    \"Impacto esperado: [Explique os benefícios, melhorias ou resultados esperados após a implementação]\\n\\n\"\n    \"Seja claro, objetivo, técnico e siga sempre essa estrutura.\\n\\n\"\n    \"Alterações de código:\\n\"\n    f\"{diff}\"",
+        "detail": "bot_pr",
+        "documentation": {}
+    },
+    {
+        "label": "headers",
+        "kind": 5,
+        "importPath": "bot_pr",
+        "description": "bot_pr",
+        "peekOfCode": "headers = {\n    \"Authorization\": f\"Bearer {OPENROUTER_API_KEY}\",\n    \"Content-Type\": \"application/json\",\n    \"HTTP-Referer\": \"localhost\",\n    \"X-Title\": \"bot_pr_script\"\n}\npayload = {\n    \"model\": MODEL,\n    \"messages\": [\n        {\"role\": \"system\", \"content\": \"Você é um assistente que resume alterações de código para Pull Requests.\"},",
+        "detail": "bot_pr",
+        "documentation": {}
+    },
+    {
+        "label": "payload",
+        "kind": 5,
+        "importPath": "bot_pr",
+        "description": "bot_pr",
+        "peekOfCode": "payload = {\n    \"model\": MODEL,\n    \"messages\": [\n        {\"role\": \"system\", \"content\": \"Você é um assistente que resume alterações de código para Pull Requests.\"},\n        {\"role\": \"user\", \"content\": prompt}\n    ],\n    \"max_tokens\": 500,\n    \"temperature\": 0.3,\n}\n# 1. Faça a requisição",
+        "detail": "bot_pr",
+        "documentation": {}
+    },
+    {
+        "label": "response",
+        "kind": 5,
+        "importPath": "bot_pr",
+        "description": "bot_pr",
+        "peekOfCode": "response = requests.post(\n    \"https://openrouter.ai/api/v1/chat/completions\",\n    headers=headers,\n    json=payload,\n    timeout=60\n)\n# 2. Cheque se a resposta está vazia\nif not response.content:\n    print(\"Resposta vazia da API!\")\n    print(\"Status code:\", response.status_code)",
+        "detail": "bot_pr",
+        "documentation": {}
+    },
+    {
+        "label": "resumo",
+        "kind": 5,
+        "importPath": "bot_pr",
+        "description": "bot_pr",
+        "peekOfCode": "resumo = data[\"choices\"][0][\"message\"][\"content\"].strip()\n# Salva o resumo em descricao_pr.txt\nwith open(descricao_path, \"w\") as f:\n    f.write(resumo)\nprint(\"Resumo gerado salvo em descricao_pr.txt\")",
+        "detail": "bot_pr",
+        "documentation": {}
+    }
+]
