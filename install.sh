@@ -10,10 +10,10 @@ INSTALL_DIR="$HOME/bin"
 PROJECT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" &>/dev/null && pwd)"
 VENV_DIR="$PROJECT_DIR/.venv"
 
-if [ -f "$PROJECT_DIR/constants.py" ]; then
-  COMMAND_NAME=$(python3 -c "import sys; sys.path.append('$PROJECT_DIR'); from constants import COMMAND_NAME; print(COMMAND_NAME)")
+if [ -f "$PROJECT_DIR/utils/constants.py" ]; then
+  COMMAND_NAME=$(python3 -c "import sys; sys.path.append('$PROJECT_DIR'); from utils.constants import COMMAND_NAME; print(COMMAND_NAME)")
 else
-  echo -e "${YELLOW}WARNING: constants.py not found. Using default command name 'cora'.${NC}"
+  echo -e "${YELLOW}WARNING: utils/constants.py not found. Using default command name 'cora'.${NC}"
   COMMAND_NAME="cora"
 fi
 
@@ -102,8 +102,8 @@ if [ ! -f .env ]; then
 # Your API key (required)
 API_KEY="your_api_key_here"
 
-# Model to use (optional, defaults to gpt-4o-mini)
-MODEL="gpt-4o-mini"
+# Model to use (optional, defaults to openai/gpt-4.1-nano)
+MODEL="openai/gpt-4.1-nano"
 
 # API Base URL (optional, defaults to OpenAI)
 API_BASE_URL="https://api.openai.com/v1"
@@ -112,12 +112,12 @@ API_BASE_URL="https://api.openai.com/v1"
 #
 # OpenAI (default):
 # API_KEY="sk-..."
-# MODEL="gpt-4o-mini"
+# MODEL="openai/gpt-4.1-nano"
 # API_BASE_URL="https://api.openai.com/v1"
 #
 # OpenRouter:
 # API_KEY="sk-or-v1-..."
-# MODEL="openai/gpt-4o-mini"
+# MODEL="openai/openai/gpt-4.1-nano"
 # API_BASE_URL="https://openrouter.ai/api/v1"
 EOF
   echo -e "${YELLOW}ACTION REQUIRED: Edit the '.env' file and configure your API settings.${NC}"
