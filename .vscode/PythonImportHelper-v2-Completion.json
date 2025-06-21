@@ -17,6 +17,14 @@
         "documentation": {}
     },
     {
+        "label": "load_dotenv",
+        "importPath": "dotenv",
+        "description": "dotenv",
+        "isExtraImport": true,
+        "detail": "dotenv",
+        "documentation": {}
+    },
+    {
         "label": "requests",
         "kind": 6,
         "isExtraImport": true,
@@ -26,11 +34,108 @@
         "documentation": {}
     },
     {
+        "label": "json",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "json",
+        "description": "json",
+        "detail": "json",
+        "documentation": {}
+    },
+    {
+        "label": "subprocess",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "subprocess",
+        "description": "subprocess",
+        "detail": "subprocess",
+        "documentation": {}
+    },
+    {
+        "label": "argparse",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "argparse",
+        "description": "argparse",
+        "detail": "argparse",
+        "documentation": {}
+    },
+    {
+        "label": "sys",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "sys",
+        "description": "sys",
+        "detail": "sys",
+        "documentation": {}
+    },
+    {
+        "label": "OpenAI",
+        "importPath": "openai",
+        "description": "openai",
+        "isExtraImport": true,
+        "detail": "openai",
+        "documentation": {}
+    },
+    {
+        "label": "*",
+        "importPath": "constants",
+        "description": "constants",
+        "isExtraImport": true,
+        "detail": "constants",
+        "documentation": {}
+    },
+    {
+        "label": "make_api_request",
+        "kind": 2,
+        "importPath": "bot_pr",
+        "description": "bot_pr",
+        "peekOfCode": "def make_api_request(prompt_content):\n    headers = {\n        \"Authorization\": f\"Bearer {OPENROUTER_API_KEY}\",\n        \"Content-Type\": \"application/json\",\n        \"HTTP-Referer\": \"localhost\",\n        \"X-Title\": \"bot_pr_script\"\n    }\n    payload = {\n        \"model\": MODEL,\n        \"messages\": [",
+        "detail": "bot_pr",
+        "documentation": {}
+    },
+    {
+        "label": "process_response",
+        "kind": 2,
+        "importPath": "bot_pr",
+        "description": "bot_pr",
+        "peekOfCode": "def process_response(response):\n    if not response:\n        return None\n    if not response.content:\n        print(\"❌ Resposta vazia da API!\")\n        print(f\"Status code: {response.status_code}\")\n        return None\n    try:\n        data = response.json()\n        if \"choices\" not in data or not data[\"choices\"]:",
+        "detail": "bot_pr",
+        "documentation": {}
+    },
+    {
+        "label": "save_result",
+        "kind": 2,
+        "importPath": "bot_pr",
+        "description": "bot_pr",
+        "peekOfCode": "def save_result(summary):\n    try:\n        with open(description_path, \"w\", encoding=\"utf-8\") as f:\n            f.write(summary)\n        print(\"✅ Resumo gerado e salvo em pr_description.txt\")\n        return True\n    except Exception as e:\n        print(f\"❌ Erro ao salvar arquivo: {e}\")\n        return False\ndef show_preview(summary):",
+        "detail": "bot_pr",
+        "documentation": {}
+    },
+    {
+        "label": "show_preview",
+        "kind": 2,
+        "importPath": "bot_pr",
+        "description": "bot_pr",
+        "peekOfCode": "def show_preview(summary):\n    print(\"\\n\" + \"=\"*60)\n    print(\"📋 PREVIEW DO RELATÓRIO GERADO\")\n    print(\"=\"*60)\n    print(summary)\n    print(\"=\"*60 + \"\\n\")\ndef main():\n    print(\"🤖 Iniciando geração de relatório de PR...\")\n    # Verificar se o arquivo de diff existe\n    if not os.path.exists(report_path):",
+        "detail": "bot_pr",
+        "documentation": {}
+    },
+    {
+        "label": "main",
+        "kind": 2,
+        "importPath": "bot_pr",
+        "description": "bot_pr",
+        "peekOfCode": "def main():\n    print(\"🤖 Iniciando geração de relatório de PR...\")\n    # Verificar se o arquivo de diff existe\n    if not os.path.exists(report_path):\n        print(f\"❌ Arquivo {report_path} não encontrado!\")\n        return\n    # Fazer requisição para a API do OpenRouter\n    response = make_api_request(prompt)\n    # Processar resposta da API do OpenRouter\n    summary = process_response(response)",
+        "detail": "bot_pr",
+        "documentation": {}
+    },
+    {
         "label": "BOT_PATH",
         "kind": 5,
         "importPath": "bot_pr",
         "description": "bot_pr",
-        "peekOfCode": "BOT_PATH = os.getenv(\"BOT_PATH\")\n# Caminho absoluto do diretório onde está o script\nSCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))\n# Carrega variáveis do .env no mesmo diretório do script\nload_dotenv(dotenv_path=os.path.join(SCRIPT_DIR, \".env\"))\nOPENROUTER_API_KEY = os.getenv(\"OPENROUTER_API_KEY\")\nMODEL = os.getenv(\"MODEL\")\n# Caminho absoluto para os arquivos\nrelatorio_path = os.path.join(SCRIPT_DIR, \"relatorio_pr.txt\")\ndescricao_path = os.path.join(SCRIPT_DIR, \"descricao_pr.txt\")",
+        "peekOfCode": "BOT_PATH = os.getenv(\"BOT_PATH\")\n# Caminho absoluto do diretório onde está o script\nSCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))\n# Carrega variáveis do .env no mesmo diretório do script\nload_dotenv(dotenv_path=os.path.join(SCRIPT_DIR, \".env\"))\nOPENROUTER_API_KEY = os.getenv(\"OPENROUTER_API_KEY\")\nMODEL = os.getenv(\"MODEL\")\n# Caminho absoluto para os arquivos\nreport_path = os.path.join(SCRIPT_DIR, \"pr_report.txt\")\ndescription_path = os.path.join(SCRIPT_DIR, \"pr_description.txt\")",
         "detail": "bot_pr",
         "documentation": {}
     },
@@ -39,7 +144,7 @@
         "kind": 5,
         "importPath": "bot_pr",
         "description": "bot_pr",
-        "peekOfCode": "SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))\n# Carrega variáveis do .env no mesmo diretório do script\nload_dotenv(dotenv_path=os.path.join(SCRIPT_DIR, \".env\"))\nOPENROUTER_API_KEY = os.getenv(\"OPENROUTER_API_KEY\")\nMODEL = os.getenv(\"MODEL\")\n# Caminho absoluto para os arquivos\nrelatorio_path = os.path.join(SCRIPT_DIR, \"relatorio_pr.txt\")\ndescricao_path = os.path.join(SCRIPT_DIR, \"descricao_pr.txt\")\n# Lê o diff salvo em relatorio_pr.txt\nwith open(relatorio_path, \"r\") as f:",
+        "peekOfCode": "SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))\n# Carrega variáveis do .env no mesmo diretório do script\nload_dotenv(dotenv_path=os.path.join(SCRIPT_DIR, \".env\"))\nOPENROUTER_API_KEY = os.getenv(\"OPENROUTER_API_KEY\")\nMODEL = os.getenv(\"MODEL\")\n# Caminho absoluto para os arquivos\nreport_path = os.path.join(SCRIPT_DIR, \"pr_report.txt\")\ndescription_path = os.path.join(SCRIPT_DIR, \"pr_description.txt\")\n# Lê o diff salvo em pr_report.txt\nwith open(report_path, \"r\", encoding=\"utf-8\") as f:",
         "detail": "bot_pr",
         "documentation": {}
     },
@@ -48,7 +153,7 @@
         "kind": 5,
         "importPath": "bot_pr",
         "description": "bot_pr",
-        "peekOfCode": "OPENROUTER_API_KEY = os.getenv(\"OPENROUTER_API_KEY\")\nMODEL = os.getenv(\"MODEL\")\n# Caminho absoluto para os arquivos\nrelatorio_path = os.path.join(SCRIPT_DIR, \"relatorio_pr.txt\")\ndescricao_path = os.path.join(SCRIPT_DIR, \"descricao_pr.txt\")\n# Lê o diff salvo em relatorio_pr.txt\nwith open(relatorio_path, \"r\") as f:\n    diff = f.read()\nprompt = (\n    \"Analise as alterações de código a seguir e gere um relatório detalhado no seguinte formato:\\n\\n\"",
+        "peekOfCode": "OPENROUTER_API_KEY = os.getenv(\"OPENROUTER_API_KEY\")\nMODEL = os.getenv(\"MODEL\")\n# Caminho absoluto para os arquivos\nreport_path = os.path.join(SCRIPT_DIR, \"pr_report.txt\")\ndescription_path = os.path.join(SCRIPT_DIR, \"pr_description.txt\")\n# Lê o diff salvo em pr_report.txt\nwith open(report_path, \"r\", encoding=\"utf-8\") as f:\n    diff = f.read()\nprompt = \"\"\"\nAnalise as alterações de código a seguir e gere um relatório detalhado seguindo EXATAMENTE este formato:",
         "detail": "bot_pr",
         "documentation": {}
     },
@@ -57,25 +162,25 @@
         "kind": 5,
         "importPath": "bot_pr",
         "description": "bot_pr",
-        "peekOfCode": "MODEL = os.getenv(\"MODEL\")\n# Caminho absoluto para os arquivos\nrelatorio_path = os.path.join(SCRIPT_DIR, \"relatorio_pr.txt\")\ndescricao_path = os.path.join(SCRIPT_DIR, \"descricao_pr.txt\")\n# Lê o diff salvo em relatorio_pr.txt\nwith open(relatorio_path, \"r\") as f:\n    diff = f.read()\nprompt = (\n    \"Analise as alterações de código a seguir e gere um relatório detalhado no seguinte formato:\\n\\n\"\n    \"Feature: [Título resumido da funcionalidade ou alteração principal]\\n\"",
+        "peekOfCode": "MODEL = os.getenv(\"MODEL\")\n# Caminho absoluto para os arquivos\nreport_path = os.path.join(SCRIPT_DIR, \"pr_report.txt\")\ndescription_path = os.path.join(SCRIPT_DIR, \"pr_description.txt\")\n# Lê o diff salvo em pr_report.txt\nwith open(report_path, \"r\", encoding=\"utf-8\") as f:\n    diff = f.read()\nprompt = \"\"\"\nAnalise as alterações de código a seguir e gere um relatório detalhado seguindo EXATAMENTE este formato:\n**Feature:** [Título resumido da funcionalidade ou alteração principal]",
         "detail": "bot_pr",
         "documentation": {}
     },
     {
-        "label": "relatorio_path",
+        "label": "report_path",
         "kind": 5,
         "importPath": "bot_pr",
         "description": "bot_pr",
-        "peekOfCode": "relatorio_path = os.path.join(SCRIPT_DIR, \"relatorio_pr.txt\")\ndescricao_path = os.path.join(SCRIPT_DIR, \"descricao_pr.txt\")\n# Lê o diff salvo em relatorio_pr.txt\nwith open(relatorio_path, \"r\") as f:\n    diff = f.read()\nprompt = (\n    \"Analise as alterações de código a seguir e gere um relatório detalhado no seguinte formato:\\n\\n\"\n    \"Feature: [Título resumido da funcionalidade ou alteração principal]\\n\"\n    \"Resumo: [Breve explicação do que foi implementado ou alterado]\\n\"\n    \"Descrição do problema: [Contextualize o problema ou necessidade antes da alteração]\\n\"",
+        "peekOfCode": "report_path = os.path.join(SCRIPT_DIR, \"pr_report.txt\")\ndescription_path = os.path.join(SCRIPT_DIR, \"pr_description.txt\")\n# Lê o diff salvo em pr_report.txt\nwith open(report_path, \"r\", encoding=\"utf-8\") as f:\n    diff = f.read()\nprompt = \"\"\"\nAnalise as alterações de código a seguir e gere um relatório detalhado seguindo EXATAMENTE este formato:\n**Feature:** [Título resumido da funcionalidade ou alteração principal]\n**Descrição:**\n[Breve explicação do que foi implementado ou alterado]",
         "detail": "bot_pr",
         "documentation": {}
     },
     {
-        "label": "descricao_path",
+        "label": "description_path",
         "kind": 5,
         "importPath": "bot_pr",
         "description": "bot_pr",
-        "peekOfCode": "descricao_path = os.path.join(SCRIPT_DIR, \"descricao_pr.txt\")\n# Lê o diff salvo em relatorio_pr.txt\nwith open(relatorio_path, \"r\") as f:\n    diff = f.read()\nprompt = (\n    \"Analise as alterações de código a seguir e gere um relatório detalhado no seguinte formato:\\n\\n\"\n    \"Feature: [Título resumido da funcionalidade ou alteração principal]\\n\"\n    \"Resumo: [Breve explicação do que foi implementado ou alterado]\\n\"\n    \"Descrição do problema: [Contextualize o problema ou necessidade antes da alteração]\\n\"\n    \"Solução implementada: [Liste e explique as principais mudanças técnicas, como novas rotas, métodos, entidades, lógica de negócio, validações, etc. Use subtópicos ou marcadores se necessário]\\n\"",
+        "peekOfCode": "description_path = os.path.join(SCRIPT_DIR, \"pr_description.txt\")\n# Lê o diff salvo em pr_report.txt\nwith open(report_path, \"r\", encoding=\"utf-8\") as f:\n    diff = f.read()\nprompt = \"\"\"\nAnalise as alterações de código a seguir e gere um relatório detalhado seguindo EXATAMENTE este formato:\n**Feature:** [Título resumido da funcionalidade ou alteração principal]\n**Descrição:**\n[Breve explicação do que foi implementado ou alterado]\n**Resumo:**",
         "detail": "bot_pr",
         "documentation": {}
     },
@@ -84,44 +189,278 @@
         "kind": 5,
         "importPath": "bot_pr",
         "description": "bot_pr",
-        "peekOfCode": "prompt = (\n    \"Analise as alterações de código a seguir e gere um relatório detalhado no seguinte formato:\\n\\n\"\n    \"Feature: [Título resumido da funcionalidade ou alteração principal]\\n\"\n    \"Resumo: [Breve explicação do que foi implementado ou alterado]\\n\"\n    \"Descrição do problema: [Contextualize o problema ou necessidade antes da alteração]\\n\"\n    \"Solução implementada: [Liste e explique as principais mudanças técnicas, como novas rotas, métodos, entidades, lógica de negócio, validações, etc. Use subtópicos ou marcadores se necessário]\\n\"\n    \"Impacto esperado: [Explique os benefícios, melhorias ou resultados esperados após a implementação]\\n\\n\"\n    \"Seja claro, objetivo, técnico e siga sempre essa estrutura.\\n\\n\"\n    \"Alterações de código:\\n\"\n    f\"{diff}\"",
+        "peekOfCode": "prompt = \"\"\"\nAnalise as alterações de código a seguir e gere um relatório detalhado seguindo EXATAMENTE este formato:\n**Feature:** [Título resumido da funcionalidade ou alteração principal]\n**Descrição:**\n[Breve explicação do que foi implementado ou alterado]\n**Resumo:**\n[Resumo técnico das principais mudanças implementadas]\n**Descrição do problema:**\n[Contextualize o problema ou necessidade antes da alteração]\n**Solução implementada:**",
         "detail": "bot_pr",
         "documentation": {}
     },
     {
-        "label": "headers",
+        "label": "VERSION",
         "kind": 5,
-        "importPath": "bot_pr",
-        "description": "bot_pr",
-        "peekOfCode": "headers = {\n    \"Authorization\": f\"Bearer {OPENROUTER_API_KEY}\",\n    \"Content-Type\": \"application/json\",\n    \"HTTP-Referer\": \"localhost\",\n    \"X-Title\": \"bot_pr_script\"\n}\npayload = {\n    \"model\": MODEL,\n    \"messages\": [\n        {\"role\": \"system\", \"content\": \"Você é um assistente que resume alterações de código para Pull Requests.\"},",
-        "detail": "bot_pr",
+        "importPath": "constants",
+        "description": "constants",
+        "peekOfCode": "VERSION = \"1.0.0\"\nCOMMAND_NAME = \"cora\"\nREPOSITORY_URL = f\"https://github.com/cleversonffaria/{COMMAND_NAME}\"\nDEFAULT_MODEL = \"gpt-4o-mini\"\nDEFAULT_TEMPERATURE = 0.3\nDEFAULT_BRANCH_TEMPERATURE = 0.5\n# API Configuration - these will be overridden by .env values\nAPI_KEY_VAR = \"API_KEY\"\nAPI_BASE_URL_VAR = \"API_BASE_URL\"\nMODEL_VAR = \"MODEL\"",
+        "detail": "constants",
         "documentation": {}
     },
     {
-        "label": "payload",
+        "label": "COMMAND_NAME",
         "kind": 5,
-        "importPath": "bot_pr",
-        "description": "bot_pr",
-        "peekOfCode": "payload = {\n    \"model\": MODEL,\n    \"messages\": [\n        {\"role\": \"system\", \"content\": \"Você é um assistente que resume alterações de código para Pull Requests.\"},\n        {\"role\": \"user\", \"content\": prompt}\n    ],\n    \"max_tokens\": 500,\n    \"temperature\": 0.3,\n}\n# 1. Faça a requisição",
-        "detail": "bot_pr",
+        "importPath": "constants",
+        "description": "constants",
+        "peekOfCode": "COMMAND_NAME = \"cora\"\nREPOSITORY_URL = f\"https://github.com/cleversonffaria/{COMMAND_NAME}\"\nDEFAULT_MODEL = \"gpt-4o-mini\"\nDEFAULT_TEMPERATURE = 0.3\nDEFAULT_BRANCH_TEMPERATURE = 0.5\n# API Configuration - these will be overridden by .env values\nAPI_KEY_VAR = \"API_KEY\"\nAPI_BASE_URL_VAR = \"API_BASE_URL\"\nMODEL_VAR = \"MODEL\"\nMESSAGES = {",
+        "detail": "constants",
         "documentation": {}
     },
     {
-        "label": "response",
+        "label": "REPOSITORY_URL",
         "kind": 5,
-        "importPath": "bot_pr",
-        "description": "bot_pr",
-        "peekOfCode": "response = requests.post(\n    \"https://openrouter.ai/api/v1/chat/completions\",\n    headers=headers,\n    json=payload,\n    timeout=60\n)\n# 2. Cheque se a resposta está vazia\nif not response.content:\n    print(\"Resposta vazia da API!\")\n    print(\"Status code:\", response.status_code)",
-        "detail": "bot_pr",
+        "importPath": "constants",
+        "description": "constants",
+        "peekOfCode": "REPOSITORY_URL = f\"https://github.com/cleversonffaria/{COMMAND_NAME}\"\nDEFAULT_MODEL = \"gpt-4o-mini\"\nDEFAULT_TEMPERATURE = 0.3\nDEFAULT_BRANCH_TEMPERATURE = 0.5\n# API Configuration - these will be overridden by .env values\nAPI_KEY_VAR = \"API_KEY\"\nAPI_BASE_URL_VAR = \"API_BASE_URL\"\nMODEL_VAR = \"MODEL\"\nMESSAGES = {\n    \"WELCOME_TITLE\": \"Bem-vindo ao {command_name} v{version}!\",",
+        "detail": "constants",
         "documentation": {}
     },
     {
-        "label": "resumo",
+        "label": "DEFAULT_MODEL",
         "kind": 5,
-        "importPath": "bot_pr",
-        "description": "bot_pr",
-        "peekOfCode": "resumo = data[\"choices\"][0][\"message\"][\"content\"].strip()\n# Salva o resumo em descricao_pr.txt\nwith open(descricao_path, \"w\") as f:\n    f.write(resumo)\nprint(\"Resumo gerado salvo em descricao_pr.txt\")",
-        "detail": "bot_pr",
+        "importPath": "constants",
+        "description": "constants",
+        "peekOfCode": "DEFAULT_MODEL = \"gpt-4o-mini\"\nDEFAULT_TEMPERATURE = 0.3\nDEFAULT_BRANCH_TEMPERATURE = 0.5\n# API Configuration - these will be overridden by .env values\nAPI_KEY_VAR = \"API_KEY\"\nAPI_BASE_URL_VAR = \"API_BASE_URL\"\nMODEL_VAR = \"MODEL\"\nMESSAGES = {\n    \"WELCOME_TITLE\": \"Bem-vindo ao {command_name} v{version}!\",\n    \"WELCOME_SUBTITLE\": \"Seu assistente de IA para desenvolvimento Git produtivo\",",
+        "detail": "constants",
+        "documentation": {}
+    },
+    {
+        "label": "DEFAULT_TEMPERATURE",
+        "kind": 5,
+        "importPath": "constants",
+        "description": "constants",
+        "peekOfCode": "DEFAULT_TEMPERATURE = 0.3\nDEFAULT_BRANCH_TEMPERATURE = 0.5\n# API Configuration - these will be overridden by .env values\nAPI_KEY_VAR = \"API_KEY\"\nAPI_BASE_URL_VAR = \"API_BASE_URL\"\nMODEL_VAR = \"MODEL\"\nMESSAGES = {\n    \"WELCOME_TITLE\": \"Bem-vindo ao {command_name} v{version}!\",\n    \"WELCOME_SUBTITLE\": \"Seu assistente de IA para desenvolvimento Git produtivo\",\n    \"API_KEY_NOT_SET\": \"❌ API_KEY environment variable not set.\",",
+        "detail": "constants",
+        "documentation": {}
+    },
+    {
+        "label": "DEFAULT_BRANCH_TEMPERATURE",
+        "kind": 5,
+        "importPath": "constants",
+        "description": "constants",
+        "peekOfCode": "DEFAULT_BRANCH_TEMPERATURE = 0.5\n# API Configuration - these will be overridden by .env values\nAPI_KEY_VAR = \"API_KEY\"\nAPI_BASE_URL_VAR = \"API_BASE_URL\"\nMODEL_VAR = \"MODEL\"\nMESSAGES = {\n    \"WELCOME_TITLE\": \"Bem-vindo ao {command_name} v{version}!\",\n    \"WELCOME_SUBTITLE\": \"Seu assistente de IA para desenvolvimento Git produtivo\",\n    \"API_KEY_NOT_SET\": \"❌ API_KEY environment variable not set.\",\n    \"API_KEY_HELP\": \"   Please define it in your .env file or your environment.\",",
+        "detail": "constants",
+        "documentation": {}
+    },
+    {
+        "label": "API_KEY_VAR",
+        "kind": 5,
+        "importPath": "constants",
+        "description": "constants",
+        "peekOfCode": "API_KEY_VAR = \"API_KEY\"\nAPI_BASE_URL_VAR = \"API_BASE_URL\"\nMODEL_VAR = \"MODEL\"\nMESSAGES = {\n    \"WELCOME_TITLE\": \"Bem-vindo ao {command_name} v{version}!\",\n    \"WELCOME_SUBTITLE\": \"Seu assistente de IA para desenvolvimento Git produtivo\",\n    \"API_KEY_NOT_SET\": \"❌ API_KEY environment variable not set.\",\n    \"API_KEY_HELP\": \"   Please define it in your .env file or your environment.\",\n    \"NO_CHANGES\": \"✅ No staged changes found. Nothing to commit.\",\n    \"OPERATION_CANCELLED\": \"🚫 Operation canceled by user. Exiting.\"",
+        "detail": "constants",
+        "documentation": {}
+    },
+    {
+        "label": "API_BASE_URL_VAR",
+        "kind": 5,
+        "importPath": "constants",
+        "description": "constants",
+        "peekOfCode": "API_BASE_URL_VAR = \"API_BASE_URL\"\nMODEL_VAR = \"MODEL\"\nMESSAGES = {\n    \"WELCOME_TITLE\": \"Bem-vindo ao {command_name} v{version}!\",\n    \"WELCOME_SUBTITLE\": \"Seu assistente de IA para desenvolvimento Git produtivo\",\n    \"API_KEY_NOT_SET\": \"❌ API_KEY environment variable not set.\",\n    \"API_KEY_HELP\": \"   Please define it in your .env file or your environment.\",\n    \"NO_CHANGES\": \"✅ No staged changes found. Nothing to commit.\",\n    \"OPERATION_CANCELLED\": \"🚫 Operation canceled by user. Exiting.\"\n}",
+        "detail": "constants",
+        "documentation": {}
+    },
+    {
+        "label": "MODEL_VAR",
+        "kind": 5,
+        "importPath": "constants",
+        "description": "constants",
+        "peekOfCode": "MODEL_VAR = \"MODEL\"\nMESSAGES = {\n    \"WELCOME_TITLE\": \"Bem-vindo ao {command_name} v{version}!\",\n    \"WELCOME_SUBTITLE\": \"Seu assistente de IA para desenvolvimento Git produtivo\",\n    \"API_KEY_NOT_SET\": \"❌ API_KEY environment variable not set.\",\n    \"API_KEY_HELP\": \"   Please define it in your .env file or your environment.\",\n    \"NO_CHANGES\": \"✅ No staged changes found. Nothing to commit.\",\n    \"OPERATION_CANCELLED\": \"🚫 Operation canceled by user. Exiting.\"\n}\nHELP_SECTIONS = {",
+        "detail": "constants",
+        "documentation": {}
+    },
+    {
+        "label": "MESSAGES",
+        "kind": 5,
+        "importPath": "constants",
+        "description": "constants",
+        "peekOfCode": "MESSAGES = {\n    \"WELCOME_TITLE\": \"Bem-vindo ao {command_name} v{version}!\",\n    \"WELCOME_SUBTITLE\": \"Seu assistente de IA para desenvolvimento Git produtivo\",\n    \"API_KEY_NOT_SET\": \"❌ API_KEY environment variable not set.\",\n    \"API_KEY_HELP\": \"   Please define it in your .env file or your environment.\",\n    \"NO_CHANGES\": \"✅ No staged changes found. Nothing to commit.\",\n    \"OPERATION_CANCELLED\": \"🚫 Operation canceled by user. Exiting.\"\n}\nHELP_SECTIONS = {\n    \"USAGE\": \"📋 USO:\",",
+        "detail": "constants",
+        "documentation": {}
+    },
+    {
+        "label": "HELP_SECTIONS",
+        "kind": 5,
+        "importPath": "constants",
+        "description": "constants",
+        "peekOfCode": "HELP_SECTIONS = {\n    \"USAGE\": \"📋 USO:\",\n    \"OPTIONS\": \"🔧 OPÇÕES:\",\n    \"EXAMPLES\": \"✨ EXEMPLOS:\",\n    \"SETUP\": \"🔑 CONFIGURAÇÃO:\",\n    \"NOTE\": \"💡 NOTA:\"\n}\nOPTION_DESCRIPTIONS = {\n    \"BRANCH\": \"Gera um nome de branch antes de fazer commit\",\n    \"PR\": \"Abre pull request no navegador após push\",",
+        "detail": "constants",
+        "documentation": {}
+    },
+    {
+        "label": "OPTION_DESCRIPTIONS",
+        "kind": 5,
+        "importPath": "constants",
+        "description": "constants",
+        "peekOfCode": "OPTION_DESCRIPTIONS = {\n    \"BRANCH\": \"Gera um nome de branch antes de fazer commit\",\n    \"PR\": \"Abre pull request no navegador após push\",\n    \"VERSION\": \"Mostra informações da versão\",\n    \"HELP\": \"Mostra esta mensagem de ajuda\"\n}\nEXAMPLE_DESCRIPTIONS = {\n    \"COMMIT_ONLY\": \"Gera apenas mensagem de commit\",\n    \"BRANCH_COMMIT\": \"Gera branch + mensagem de commit\", \n    \"FULL_WORKFLOW\": \"Fluxo completo: branch + commit + push + PR\"",
+        "detail": "constants",
+        "documentation": {}
+    },
+    {
+        "label": "EXAMPLE_DESCRIPTIONS",
+        "kind": 5,
+        "importPath": "constants",
+        "description": "constants",
+        "peekOfCode": "EXAMPLE_DESCRIPTIONS = {\n    \"COMMIT_ONLY\": \"Gera apenas mensagem de commit\",\n    \"BRANCH_COMMIT\": \"Gera branch + mensagem de commit\", \n    \"FULL_WORKFLOW\": \"Fluxo completo: branch + commit + push + PR\"\n}",
+        "detail": "constants",
+        "documentation": {}
+    },
+    {
+        "label": "show_version",
+        "kind": 2,
+        "importPath": "main",
+        "description": "main",
+        "peekOfCode": "def show_version():\n    print(f\"🤖 {COMMAND_NAME.title()} v{VERSION}\")\n    print(\"Assistente de fluxo de trabalho Git com IA\")\n    print(REPOSITORY_URL)\ndef show_welcome():\n    print(f\"\"\"\n🤖 {MESSAGES[\"WELCOME_TITLE\"].format(command_name=COMMAND_NAME.title(), version=VERSION)}\n✨ {MESSAGES[\"WELCOME_SUBTITLE\"]}\n🚀 {COMMAND_NAME.title()} ajuda você a:\n   • Gerar mensagens de commit profissionais automaticamente",
+        "detail": "main",
+        "documentation": {}
+    },
+    {
+        "label": "show_welcome",
+        "kind": 2,
+        "importPath": "main",
+        "description": "main",
+        "peekOfCode": "def show_welcome():\n    print(f\"\"\"\n🤖 {MESSAGES[\"WELCOME_TITLE\"].format(command_name=COMMAND_NAME.title(), version=VERSION)}\n✨ {MESSAGES[\"WELCOME_SUBTITLE\"]}\n🚀 {COMMAND_NAME.title()} ajuda você a:\n   • Gerar mensagens de commit profissionais automaticamente\n   • Criar nomes de branches descritivos e organizados  \n   • Automatizar seu fluxo de trabalho Git completo\n   • Economizar tempo e manter consistência no projeto\n💡 Para começar:",
+        "detail": "main",
+        "documentation": {}
+    },
+    {
+        "label": "show_help",
+        "kind": 2,
+        "importPath": "main",
+        "description": "main",
+        "peekOfCode": "def show_help():\n    print(f\"\"\"🤖 {COMMAND_NAME.title()} v{VERSION} - Assistente de Git com IA\n{HELP_SECTIONS[\"USAGE\"]}\n  {COMMAND_NAME} [OPÇÕES]\n{HELP_SECTIONS[\"OPTIONS\"]}\n  -b, --branch         {OPTION_DESCRIPTIONS[\"BRANCH\"]}\n  --pr                 {OPTION_DESCRIPTIONS[\"PR\"]}\n  -v, --version        {OPTION_DESCRIPTIONS[\"VERSION\"]}\n  --help               {OPTION_DESCRIPTIONS[\"HELP\"]}\n{HELP_SECTIONS[\"EXAMPLES\"]}",
+        "detail": "main",
+        "documentation": {}
+    },
+    {
+        "label": "run_git_command",
+        "kind": 2,
+        "importPath": "main",
+        "description": "main",
+        "peekOfCode": "def run_git_command(command, check=True):\n    try:\n        result = subprocess.run(\n            command,\n            stdout=subprocess.PIPE,\n            stderr=subprocess.PIPE,\n            text=True,\n            check=check,\n            encoding='utf-8'\n        )",
+        "detail": "main",
+        "documentation": {}
+    },
+    {
+        "label": "get_git_diff",
+        "kind": 2,
+        "importPath": "main",
+        "description": "main",
+        "peekOfCode": "def get_git_diff():\n    run_git_command([\"git\", \"add\", \".\"])\n    diff = run_git_command([\"git\", \"diff\", \"--cached\"])\n    return diff\ndef get_ai_suggestion(prompt, model=None, temperature=DEFAULT_TEMPERATURE):\n    if model is None:\n        model = MODEL\n    try:\n        response = client.chat.completions.create(\n            model=model,",
+        "detail": "main",
+        "documentation": {}
+    },
+    {
+        "label": "get_ai_suggestion",
+        "kind": 2,
+        "importPath": "main",
+        "description": "main",
+        "peekOfCode": "def get_ai_suggestion(prompt, model=None, temperature=DEFAULT_TEMPERATURE):\n    if model is None:\n        model = MODEL\n    try:\n        response = client.chat.completions.create(\n            model=model,\n            messages=[{\"role\": \"user\", \"content\": prompt}],\n            temperature=temperature,\n        )\n        return response.choices[0].message.content.strip().replace(\"`\", \"\")",
+        "detail": "main",
+        "documentation": {}
+    },
+    {
+        "label": "generate_commit_message",
+        "kind": 2,
+        "importPath": "main",
+        "description": "main",
+        "peekOfCode": "def generate_commit_message(diff, temperature=DEFAULT_TEMPERATURE, history=None):\n    prompt = (\n        \"You are an assistant that generates commit messages in the conventional commits format.\\n\"\n        \"Based on the git diff below, identify the MOST SIGNIFICANT change and generate a short, clear commit message in English about it.\\n\"\n        \"Focus on the main purpose of the change.\\n\"\n        \"Use prefixes like feat, fix, chore, refactor, test, docs, style, perf, ci, build, revert etc.\\n\"\n        \"Only the message, with no extra explanations or remarks.\\n\"\n        \"Generate ONLY ONE commit message, with no line breaks or special formatting.\\n\"\n        \"Nothing but a commit message.\"\n    )",
+        "detail": "main",
+        "documentation": {}
+    },
+    {
+        "label": "generate_branch_name",
+        "kind": 2,
+        "importPath": "main",
+        "description": "main",
+        "peekOfCode": "def generate_branch_name(diff, temperature=DEFAULT_BRANCH_TEMPERATURE, history=None):\n    prompt = (\n        \"You are an assistant that generates Git branch names.\\n\"\n        \"Based on the git diff below, identify the MOST SIGNIFICANT change and generate a short, descriptive branch name in English for it, \"\n        \"using hyphens to separate words and following the 'type/short-description' format.\\n\"\n        \"The name should reflect the main purpose of the changes.\\n\"\n        \"Use prefixes like feat/, fix/, chore/, refactor/, test/, docs/, style/, perf/, ci/, build/, revert/.\\n\"\n        \"Examples: feat/add-user-login, fix/resolve-payment-bug, chore/update-dependencies.\\n\"\n        \"Generate ONLY the branch name, with no extra explanations or remarks.\"\n    )",
+        "detail": "main",
+        "documentation": {}
+    },
+    {
+        "label": "user_interaction_loop",
+        "kind": 2,
+        "importPath": "main",
+        "description": "main",
+        "peekOfCode": "def user_interaction_loop(prompt_question, generation_function, diff):\n    if \"branch\" in prompt_question.lower():\n        suggested_temperature = DEFAULT_BRANCH_TEMPERATURE\n    else:\n        suggested_temperature = DEFAULT_TEMPERATURE\n    previous_suggestions = []\n    while True:\n        suggestion = generation_function(\n            diff,\n            temperature=suggested_temperature,",
+        "detail": "main",
+        "documentation": {}
+    },
+    {
+        "label": "open_in_browser",
+        "kind": 2,
+        "importPath": "main",
+        "description": "main",
+        "peekOfCode": "def open_in_browser(url):\n    command = []\n    if sys.platform.startswith('linux'):\n        command = ['xdg-open', url]\n    elif sys.platform == 'darwin':\n        command = ['open', url]\n    elif sys.platform == 'win32':\n        command = ['start', url]\n    if not command:\n        return False",
+        "detail": "main",
+        "documentation": {}
+    },
+    {
+        "label": "get_pr_url",
+        "kind": 2,
+        "importPath": "main",
+        "description": "main",
+        "peekOfCode": "def get_pr_url(branch_name):\n    try:\n        remote_url = run_git_command([\"git\", \"config\", \"--get\", \"remote.origin.url\"])\n        if not remote_url:\n            return None\n        if remote_url.startswith(\"https://\"):\n            repo_path = remote_url.replace(\"https://github.com/\", \"\").replace(\".git\", \"\")\n        elif remote_url.startswith(\"git@\"):\n            repo_path = remote_url.replace(\"git@github.com:\", \"\").replace(\".git\", \"\")\n        else:",
+        "detail": "main",
+        "documentation": {}
+    },
+    {
+        "label": "main",
+        "kind": 2,
+        "importPath": "main",
+        "description": "main",
+        "peekOfCode": "def main():\n    parser = argparse.ArgumentParser(description=\"Assistente de fluxo de trabalho Git com IA\", add_help=False)\n    parser.add_argument(\"--branch\", \"-b\", action=\"store_true\", help=OPTION_DESCRIPTIONS[\"BRANCH\"])\n    parser.add_argument(\"--pr\", action=\"store_true\", help=OPTION_DESCRIPTIONS[\"PR\"])\n    parser.add_argument(\"--version\", \"-v\", \"--v\", \"-version\", action=\"store_true\", help=OPTION_DESCRIPTIONS[\"VERSION\"])\n    parser.add_argument(\"--help\", action=\"store_true\", help=OPTION_DESCRIPTIONS[\"HELP\"])\n    args = parser.parse_args()\n    # Handle help and version first\n    if args.help:\n        show_help()",
+        "detail": "main",
+        "documentation": {}
+    },
+    {
+        "label": "API_KEY",
+        "kind": 5,
+        "importPath": "main",
+        "description": "main",
+        "peekOfCode": "API_KEY = os.getenv(API_KEY_VAR)\nAPI_BASE_URL = os.getenv(API_BASE_URL_VAR)\nMODEL = os.getenv(MODEL_VAR, DEFAULT_MODEL)\n# Initialize client with dynamic configuration\nclient_kwargs = {\"api_key\": API_KEY}\nif API_BASE_URL:\n    client_kwargs[\"base_url\"] = API_BASE_URL\nclient = OpenAI(**client_kwargs)\ndef show_version():\n    print(f\"🤖 {COMMAND_NAME.title()} v{VERSION}\")",
+        "detail": "main",
+        "documentation": {}
+    },
+    {
+        "label": "API_BASE_URL",
+        "kind": 5,
+        "importPath": "main",
+        "description": "main",
+        "peekOfCode": "API_BASE_URL = os.getenv(API_BASE_URL_VAR)\nMODEL = os.getenv(MODEL_VAR, DEFAULT_MODEL)\n# Initialize client with dynamic configuration\nclient_kwargs = {\"api_key\": API_KEY}\nif API_BASE_URL:\n    client_kwargs[\"base_url\"] = API_BASE_URL\nclient = OpenAI(**client_kwargs)\ndef show_version():\n    print(f\"🤖 {COMMAND_NAME.title()} v{VERSION}\")\n    print(\"Assistente de fluxo de trabalho Git com IA\")",
+        "detail": "main",
+        "documentation": {}
+    },
+    {
+        "label": "MODEL",
+        "kind": 5,
+        "importPath": "main",
+        "description": "main",
+        "peekOfCode": "MODEL = os.getenv(MODEL_VAR, DEFAULT_MODEL)\n# Initialize client with dynamic configuration\nclient_kwargs = {\"api_key\": API_KEY}\nif API_BASE_URL:\n    client_kwargs[\"base_url\"] = API_BASE_URL\nclient = OpenAI(**client_kwargs)\ndef show_version():\n    print(f\"🤖 {COMMAND_NAME.title()} v{VERSION}\")\n    print(\"Assistente de fluxo de trabalho Git com IA\")\n    print(REPOSITORY_URL)",
+        "detail": "main",
+        "documentation": {}
+    },
+    {
+        "label": "client_kwargs",
+        "kind": 5,
+        "importPath": "main",
+        "description": "main",
+        "peekOfCode": "client_kwargs = {\"api_key\": API_KEY}\nif API_BASE_URL:\n    client_kwargs[\"base_url\"] = API_BASE_URL\nclient = OpenAI(**client_kwargs)\ndef show_version():\n    print(f\"🤖 {COMMAND_NAME.title()} v{VERSION}\")\n    print(\"Assistente de fluxo de trabalho Git com IA\")\n    print(REPOSITORY_URL)\ndef show_welcome():\n    print(f\"\"\"",
+        "detail": "main",
+        "documentation": {}
+    },
+    {
+        "label": "client",
+        "kind": 5,
+        "importPath": "main",
+        "description": "main",
+        "peekOfCode": "client = OpenAI(**client_kwargs)\ndef show_version():\n    print(f\"🤖 {COMMAND_NAME.title()} v{VERSION}\")\n    print(\"Assistente de fluxo de trabalho Git com IA\")\n    print(REPOSITORY_URL)\ndef show_welcome():\n    print(f\"\"\"\n🤖 {MESSAGES[\"WELCOME_TITLE\"].format(command_name=COMMAND_NAME.title(), version=VERSION)}\n✨ {MESSAGES[\"WELCOME_SUBTITLE\"]}\n🚀 {COMMAND_NAME.title()} ajuda você a:",
+        "detail": "main",
         "documentation": {}
     }
 ]

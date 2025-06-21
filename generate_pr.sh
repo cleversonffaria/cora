@@ -52,8 +52,8 @@ current_branch=$(git rev-parse --abbrev-ref HEAD)
 echo "Comparando a branch atual '$current_branch' com '$base_branch'..."
 
 # Gere o diff no diretório do bot
-git diff "$base_branch..$current_branch" >"$BOT_PATH/relatorio_pr.txt"
-echo "Diff salvo em relatorio_pr.txt"
+git diff "$base_branch..$current_branch" >"$BOT_PATH/pr_report.txt"
+echo "Diff salvo em pr_report.txt"
 
 # Chama o Python para gerar a descrição
 python3 "$BOT_PATH/bot_pr.py"
@@ -65,10 +65,10 @@ if gh auth status >/dev/null 2>&1; then
   # Verifica se consegue acessar o repositório remoto
   if gh repo view >/dev/null 2>&1; then
     echo "Repositório acessível. Criando PR automaticamente..."
-    echo "Descrição gerada em descricao_pr.txt"
+    echo "Descrição gerada em pr_description.txt"
 
     # Abre o Pull Request automaticamente
-    if gh pr create --base "$base_branch" --title "PR automático: $current_branch -> $base_branch" --body-file "$BOT_PATH/descricao_pr.txt"; then
+    if gh pr create --base "$base_branch" --title "PR automático: $current_branch -> $base_branch" --body-file "$BOT_PATH/pr_description.txt"; then
       echo "PR criado com sucesso!"
     else
       echo "Erro ao criar PR. Exibindo descrição no terminal:"
@@ -78,12 +78,12 @@ if gh auth status >/dev/null 2>&1; then
       echo "HEAD: $current_branch"
       echo "=========================================="
       echo "DESCRIÇÃO:"
-      cat "$BOT_PATH/descricao_pr.txt"
+      cat "$BOT_PATH/pr_description.txt"
       echo "=========================================="
     fi
 
     # Limpa o arquivo temporário
-    rm "$BOT_PATH/relatorio_pr.txt"
+    rm "$BOT_PATH/pr_report.txt"
   else
     echo "Não foi possível acessar o repositório remoto. Exibindo descrição do PR no terminal:"
     echo "=========================================="
@@ -92,7 +92,7 @@ if gh auth status >/dev/null 2>&1; then
     echo "HEAD: $current_branch"
     echo "=========================================="
     echo "DESCRIÇÃO:"
-    cat "$BOT_PATH/descricao_pr.txt"
+    cat "$BOT_PATH/pr_description.txt"
     echo ""
     echo ""
     echo "=========================================="
@@ -103,8 +103,8 @@ if gh auth status >/dev/null 2>&1; then
     echo "3. O nome do repositório está correto"
 
     # Limpa os arquivos temporários
-    rm "$BOT_PATH/relatorio_pr.txt"
-    rm "$BOT_PATH/descricao_pr.txt"
+    rm "$BOT_PATH/pr_report.txt"
+    rm "$BOT_PATH/pr_description.txt"
   fi
 else
   echo "GitHub CLI não está autenticado. Exibindo descrição do PR no terminal:"
@@ -114,13 +114,13 @@ else
   echo "HEAD: $current_branch"
   echo "=========================================="
   echo "DESCRIÇÃO:"
-  cat "$BOT_PATH/descricao_pr.txt"
+  cat "$BOT_PATH/pr_description.txt"
   echo "=========================================="
   echo ""
   echo "Para autenticar no GitHub CLI, execute: gh auth login"
   echo "Após autenticar, execute novamente este script para criar o PR automaticamente."
 
   # Limpa os arquivos temporários
-  rm "$BOT_PATH/relatorio_pr.txt"
-  rm "$BOT_PATH/descricao_pr.txt"
+  rm "$BOT_PATH/pr_report.txt"
+  rm "$BOT_PATH/pr_description.txt"
 fi
