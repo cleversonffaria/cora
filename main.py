@@ -511,23 +511,20 @@ def main():
                     else:
                         print("❌ Não foi possível criar o PR automaticamente.")
                         print("   Continuando com método manual...")
+                else:
+                    print("⚠️ GitHub CLI não disponível ou não autenticado.")
+                    print("   Continuando com método manual...")
                 
-                # Se não conseguiu criar automaticamente, oferece abrir no navegador
+                # SEMPRE abre no navegador se não criou automaticamente
                 if not pr_created_successfully:
                     pr_url = get_pr_url(current_branch)
                     if pr_url:
-                        open_pr_response = input("🔗 Abrir Pull Request no navegador? (Y/n): ").strip().lower()
-                        if open_pr_response in ('y', ''):
-                            print(f"🚀 Abrindo PR no navegador...")
-                            if not open_in_browser(pr_url):
-                                print(f"⚠️ Não foi possível abrir o navegador automaticamente.")
-                                print(f"   Copie e cole esta URL:\n   {pr_url}")
-                            else:
-                                print("✅ PR aberto no navegador!")
+                        print("🚀 Abrindo PR no navegador...")
+                        if not open_in_browser(pr_url):
+                            print(f"⚠️ Não foi possível abrir o navegador automaticamente.")
+                            print(f"   Copie e cole esta URL:\n   {pr_url}")
                         else:
-                            print("🚫 Abertura no navegador cancelada.")
-                            if pr_url:
-                                print(f"🔗 URL do PR: {pr_url}")
+                            print("✅ PR aberto no navegador!")
                     else:
                         print("⚠️ Não foi possível gerar URL do PR. Verifique se há um remote GitHub válido.")
                     
