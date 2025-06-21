@@ -303,3 +303,4 @@ Se o Cora foi útil para você, considere dar uma ⭐ no repositório!
 ---
 
 **Desenvolvido com ❤️ por [Cleverson Fernandes](https://github.com/cleversonffaria)**
+**Colaboração: [Yuri Costa](https://github.com/YuriRCosta)**
