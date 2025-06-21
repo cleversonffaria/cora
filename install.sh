@@ -10,7 +10,6 @@ INSTALL_DIR="$HOME/bin"
 PROJECT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" &>/dev/null && pwd)"
 VENV_DIR="$PROJECT_DIR/.venv"
 
-# Get COMMAND_NAME from constants.py
 if [ -f "$PROJECT_DIR/constants.py" ]; then
   COMMAND_NAME=$(python3 -c "import sys; sys.path.append('$PROJECT_DIR'); from constants import COMMAND_NAME; print(COMMAND_NAME)")
 else

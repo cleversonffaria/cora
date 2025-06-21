@@ -4,6 +4,7 @@ import subprocess
 import os
 import argparse
 import sys
+import tempfile
 from openai import OpenAI
 from dotenv import load_dotenv
 from constants import *
@@ -198,6 +199,133 @@ def open_in_browser(url):
     except (subprocess.CalledProcessError, FileNotFoundError):
         return False
 
+def generate_pr_description(base_branch, current_branch):
+    """Gera descrição detalhada do PR usando IA baseado no diff"""
+    print("🤖 Gerando descrição do PR...")
+    
+    # Gera diff entre as branches
+    try:
+        diff = run_git_command(["git", "diff", f"{base_branch}..{current_branch}"])
+        if not diff:
+            print("⚠️ Nenhuma diferença encontrada entre as branches.")
+            return None
+    except:
+        print("❌ Erro ao gerar diff entre branches.")
+        return None
+    
+    prompt = f"""
+Analise as alterações de código a seguir e gere um relatório detalhado seguindo EXATAMENTE este formato:
+
+**Feature:** [Título resumido da funcionalidade ou alteração principal]
+
+**Descrição:**
+[Breve explicação do que foi implementado ou alterado]
+
+**Resumo:**
+[Resumo técnico das principais mudanças implementadas]
+
+**Descrição do problema:**
+[Contextualize o problema ou necessidade antes da alteração]
+
+**Solução implementada:**
+[Liste as principais mudanças técnicas:]
+- ➕ [Para adições/criações]
+- 🔧 [Para lógica de negócio/funções]
+- 📦 [Para componentes/módulos]
+- 🧪 [Para testes]
+- 🛣️ [Para rotas/APIs]
+- 📝 [Para configurações/documentação]
+- 🎨 [Para melhorias de UI/UX]
+- 🚀 [Para otimizações]
+
+**Impacto Esperado:**
+[Explique os benefícios, melhorias ou resultados esperados após a implementação]
+
+Seja técnico, detalhado e mantenha EXATAMENTE esta estrutura em formato markdown.
+
+Alterações de código:
+{diff}
+"""
+    
+    return get_ai_suggestion(prompt, temperature=0.3)
+
+def check_github_cli():
+    """Verifica se GitHub CLI está instalado e autenticado"""
+    try:
+        # Verifica se gh está instalado
+        run_git_command(["gh", "--version"])
+        
+        # Verifica se está autenticado
+        run_git_command(["gh", "auth", "status"])
+        
+        # Verifica se consegue acessar o repositório
+        run_git_command(["gh", "repo", "view"])
+        
+        return True
+    except:
+        return False
+
+def create_pr_with_cli(base_branch, current_branch, description):
+    """Cria PR usando GitHub CLI"""
+    try:
+        title = f"PR: {current_branch} -> {base_branch}"
+        
+        # Cria arquivo temporário com a descrição
+        with tempfile.NamedTemporaryFile(mode='w', suffix='.md', delete=False, encoding='utf-8') as temp_file:
+            temp_file.write(description)
+            temp_file_path = temp_file.name
+        
+        # Cria o PR usando --body-file
+        pr_url = run_git_command([
+            "gh", "pr", "create", 
+            "--base", base_branch,
+            "--title", title,
+            "--body-file", temp_file_path
+        ])
+        
+        # Remove arquivo temporário
+        os.unlink(temp_file_path)
+        
+        return pr_url.strip()
+    except Exception as e:
+        # Remove arquivo temporário em caso de erro
+        try:
+            if 'temp_file_path' in locals():
+                os.unlink(temp_file_path)
+        except:
+            pass
+            
+        error_msg = str(e)
+        if "must be a collaborator" in error_msg:
+            print("⚠️ Você não tem permissão de colaborador neste repositório.")
+            print("   Continuando com método alternativo...")
+        elif "uncommitted changes" in error_msg:
+            print("⚠️ Há alterações não commitadas.")
+            print("   Faça commit das alterações antes de criar o PR.")
+        else:
+            print(f"❌ Erro ao criar PR: {e}")
+        return None
+
+def get_current_branch():
+    """Retorna a branch atual"""
+    try:
+        return run_git_command(["git", "rev-parse", "--abbrev-ref", "HEAD"])
+    except:
+        return None
+
+def get_local_branches():
+    """Retorna lista de branches locais, excluindo as com '/'"""
+    try:
+        branches_output = run_git_command(["git", "branch", "--list"])
+        branches = []
+        for line in branches_output.split('\n'):
+            branch = line.strip().replace('*', '').strip()
+            if branch and '/' not in branch:
+                branches.append(branch)
+        return branches
+    except:
+        return []
+
 def get_pr_url(branch_name):
     try:
         remote_url = run_git_command(["git", "config", "--get", "remote.origin.url"])
@@ -312,21 +440,103 @@ def main():
 
     # 3. Handle PR creation
     if args.pr:
-        current_branch = run_git_command(["git", "rev-parse", "--abbrev-ref", "HEAD"])
-        print(f"🔗 Opening Pull Request for branch '{current_branch}'...")
+        print("📋 Iniciando processo de criação de Pull Request...")
         
-        pr_url = get_pr_url(current_branch)
-        if pr_url:
-            open_pr_response = input(f"\n🔗 Would you like to open a Pull Request in your browser? (Y/n): ").strip().lower()
-            if open_pr_response in ('y', ''):
-                print(f"🚀 Opening PR link in your browser...")
-                if not open_in_browser(pr_url):
-                    print(f"⚠️ Could not open the browser automatically.")
-                    print(f"   Please, copy and paste this URL:\n   {pr_url}")
+        # Get current branch
+        current_branch = get_current_branch()
+        if not current_branch:
+            print("❌ Não foi possível obter a branch atual.")
+            return
+        
+        # Get branches for comparison
+        branches = get_local_branches()
+        if not branches:
+            print("❌ Nenhuma branch disponível para comparação.")
+            return
+        
+        # Filter out current branch
+        available_branches = [b for b in branches if b != current_branch]
+        if not available_branches:
+            print("❌ Nenhuma branch base disponível para comparação.")
+            return
+        
+        print(f"📍 Branch atual: {current_branch}")
+        print("\n📋 Selecione a branch base para comparação:")
+        
+        for i, branch in enumerate(available_branches, 1):
+            print(f"{i}. {branch}")
+        
+        try:
+            choice = int(input("\n🔢 Digite o número da branch: "))
+            if 1 <= choice <= len(available_branches):
+                base_branch = available_branches[choice - 1]
+                print(f"✅ Comparando {current_branch} com {base_branch}")
+                
+                # Verifica se GitHub CLI está disponível
+                github_cli_available = check_github_cli()
+                pr_created_successfully = False
+                
+                if github_cli_available:
+                    print("✅ GitHub CLI autenticado. Criando PR automaticamente...")
+                    
+                    # Gera descrição com IA se API_KEY estiver disponível
+                    description = None
+                    if API_KEY:
+                        description = generate_pr_description(base_branch, current_branch)
+                    
+                    if not description:
+                        description = f"PR automático: {current_branch} -> {base_branch}"
+                    
+                    # Cria PR automaticamente
+                    pr_url = create_pr_with_cli(base_branch, current_branch, description)
+                    if pr_url:
+                        print(f"🎉 PR criado com sucesso!")
+                        print(f"🔗 URL: {pr_url}")
+                        pr_created_successfully = True
+                
+                # Fallback: Gera descrição e exibe no terminal + abre no browser
+                if not pr_created_successfully:
+                    description = None
+                    if API_KEY:
+                        print("📝 Gerando descrição para exibição...")
+                        description = generate_pr_description(base_branch, current_branch)
+                    
+                    if description:
+                        print("\n\n" + "="*70)
+                        print("📋 DESCRIÇÃO DO PULL REQUEST")
+                        print("="*70)
+                        print(f"TÍTULO: PR: {current_branch} -> {base_branch}")
+                        print(f"BASE: {base_branch}")
+                        print(f"HEAD: {current_branch}")
+                        print("="*70)
+                        print("DESCRIÇÃO:")
+                        print()
+                        print(description)
+                        print()
+                        print("="*70 + "\n\n")
+                    
+                    # Abre PR no navegador
+                    pr_url = get_pr_url(current_branch)
+                    if pr_url:
+                        open_pr_response = input("🔗 Abrir Pull Request no navegador? (Y/n): ").strip().lower()
+                        if open_pr_response in ('y', ''):
+                            print(f"🚀 Abrindo PR no navegador...")
+                            if not open_in_browser(pr_url):
+                                print(f"⚠️ Não foi possível abrir o navegador automaticamente.")
+                                print(f"   Copie e cole esta URL:\n   {pr_url}")
+                            else:
+                                print("✅ PR aberto no navegador!")
+                        else:
+                            print("🚫 Abertura no navegador cancelada.")
+                            if pr_url:
+                                print(f"🔗 URL do PR: {pr_url}")
+                    else:
+                        print("⚠️ Não foi possível gerar URL do PR. Verifique se há um remote GitHub válido.")
+                    
             else:
-                print("🚫 PR opening canceled.")
-        else:
-            print("⚠️ Could not generate PR URL. Make sure you have a valid GitHub remote.")
+                print("❌ Opção inválida.")
+        except ValueError:
+            print("❌ Por favor, digite um número válido.")
 
 if __name__ == "__main__":
     try:

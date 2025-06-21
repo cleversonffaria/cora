@@ -70,6 +70,15 @@
         "documentation": {}
     },
     {
+        "label": "tempfile",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "tempfile",
+        "description": "tempfile",
+        "detail": "tempfile",
+        "documentation": {}
+    },
+    {
         "label": "OpenAI",
         "importPath": "openai",
         "description": "openai",
@@ -388,6 +397,51 @@
         "importPath": "main",
         "description": "main",
         "peekOfCode": "def open_in_browser(url):\n    command = []\n    if sys.platform.startswith('linux'):\n        command = ['xdg-open', url]\n    elif sys.platform == 'darwin':\n        command = ['open', url]\n    elif sys.platform == 'win32':\n        command = ['start', url]\n    if not command:\n        return False",
+        "detail": "main",
+        "documentation": {}
+    },
+    {
+        "label": "generate_pr_description",
+        "kind": 2,
+        "importPath": "main",
+        "description": "main",
+        "peekOfCode": "def generate_pr_description(base_branch, current_branch):\n    \"\"\"Gera descrição detalhada do PR usando IA baseado no diff\"\"\"\n    print(\"🤖 Gerando descrição do PR...\")\n    # Gera diff entre as branches\n    try:\n        diff = run_git_command([\"git\", \"diff\", f\"{base_branch}..{current_branch}\"])\n        if not diff:\n            print(\"⚠️ Nenhuma diferença encontrada entre as branches.\")\n            return None\n    except:",
+        "detail": "main",
+        "documentation": {}
+    },
+    {
+        "label": "check_github_cli",
+        "kind": 2,
+        "importPath": "main",
+        "description": "main",
+        "peekOfCode": "def check_github_cli():\n    \"\"\"Verifica se GitHub CLI está instalado e autenticado\"\"\"\n    try:\n        # Verifica se gh está instalado\n        run_git_command([\"gh\", \"--version\"])\n        # Verifica se está autenticado\n        run_git_command([\"gh\", \"auth\", \"status\"])\n        # Verifica se consegue acessar o repositório\n        run_git_command([\"gh\", \"repo\", \"view\"])\n        return True",
+        "detail": "main",
+        "documentation": {}
+    },
+    {
+        "label": "create_pr_with_cli",
+        "kind": 2,
+        "importPath": "main",
+        "description": "main",
+        "peekOfCode": "def create_pr_with_cli(base_branch, current_branch, description):\n    \"\"\"Cria PR usando GitHub CLI\"\"\"\n    try:\n        title = f\"PR: {current_branch} -> {base_branch}\"\n        # Cria arquivo temporário com a descrição\n        with tempfile.NamedTemporaryFile(mode='w', suffix='.md', delete=False, encoding='utf-8') as temp_file:\n            temp_file.write(description)\n            temp_file_path = temp_file.name\n        # Cria o PR usando --body-file\n        pr_url = run_git_command([",
+        "detail": "main",
+        "documentation": {}
+    },
+    {
+        "label": "get_current_branch",
+        "kind": 2,
+        "importPath": "main",
+        "description": "main",
+        "peekOfCode": "def get_current_branch():\n    \"\"\"Retorna a branch atual\"\"\"\n    try:\n        return run_git_command([\"git\", \"rev-parse\", \"--abbrev-ref\", \"HEAD\"])\n    except:\n        return None\ndef get_local_branches():\n    \"\"\"Retorna lista de branches locais, excluindo as com '/'\"\"\"\n    try:\n        branches_output = run_git_command([\"git\", \"branch\", \"--list\"])",
+        "detail": "main",
+        "documentation": {}
+    },
+    {
+        "label": "get_local_branches",
+        "kind": 2,
+        "importPath": "main",
+        "description": "main",
+        "peekOfCode": "def get_local_branches():\n    \"\"\"Retorna lista de branches locais, excluindo as com '/'\"\"\"\n    try:\n        branches_output = run_git_command([\"git\", \"branch\", \"--list\"])\n        branches = []\n        for line in branches_output.split('\\n'):\n            branch = line.strip().replace('*', '').strip()\n            if branch and '/' not in branch:\n                branches.append(branch)\n        return branches",
         "detail": "main",
         "documentation": {}
     },
