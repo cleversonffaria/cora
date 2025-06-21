@@ -233,12 +233,10 @@ def main():
         show_version()
         return
 
-    # Check if no arguments were provided (only default values)
     if not any([args.branch, args.commit, args.pr]):
         show_welcome()
         return
 
-    # Check if we need to access git/API for any operations
     if args.branch or args.commit:
         if not API_KEY:
             print(MESSAGES["API_KEY_NOT_SET"])
