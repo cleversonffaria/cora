@@ -68,7 +68,7 @@ def show_help():
   Configure sua chave da API no arquivo .env:
   {API_KEY_VAR}="sua_chave_aqui"
   {MODEL_VAR}="modelo_desejado"
-  {API_BASE_URL_VAR}="url_da_api" (opcional)
+  {API_BASE_URL_VAR}="url_da_api"
 
 {HELP_SECTIONS["NOTE"]}
   O comando automaticamente adiciona todas as mudanças (git add .) antes de gerar sugestões.
