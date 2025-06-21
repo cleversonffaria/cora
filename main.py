@@ -268,7 +268,7 @@ def check_github_cli():
 def create_pr_with_cli(base_branch, current_branch, description):
     """Cria PR usando GitHub CLI"""
     try:
-        title = f"PR: {current_branch} -> {base_branch}"
+        title = f'"PR: {current_branch} to {base_branch}"'
         
         # Cria arquivo temporário com a descrição
         with tempfile.NamedTemporaryFile(mode='w', suffix='.md', delete=False, encoding='utf-8') as temp_file:
@@ -472,20 +472,35 @@ def main():
                 base_branch = available_branches[choice - 1]
                 print(f"✅ Comparando {current_branch} com {base_branch}")
                 
-                # Verifica se GitHub CLI está disponível
+                # Gera descrição com IA se API_KEY estiver disponível
+                description = None
+                if API_KEY:
+                    description = generate_pr_description(base_branch, current_branch)
+                
+                if not description:
+                    description = f"PR automático: {current_branch} to {base_branch}"
+                
+                # Sempre mostra a descrição primeiro
+                if description:
+                    print("\n\n" + "="*70)
+                    print("📋 DESCRIÇÃO DO PULL REQUEST")
+                    print("="*70)
+                    print(f"TÍTULO: PR: {current_branch} to {base_branch}")
+                    print(f"BASE: {base_branch}")
+                    print(f"HEAD: {current_branch}")
+                    print("="*70)
+                    print("DESCRIÇÃO:")
+                    print()
+                    print(description)
+                    print()
+                    print("="*70 + "\n\n")
+                
+                # Verifica se GitHub CLI está disponível e tenta criar PR
                 github_cli_available = check_github_cli()
                 pr_created_successfully = False
                 
                 if github_cli_available:
-                    print("✅ GitHub CLI autenticado. Criando PR automaticamente...")
-                    
-                    # Gera descrição com IA se API_KEY estiver disponível
-                    description = None
-                    if API_KEY:
-                        description = generate_pr_description(base_branch, current_branch)
-                    
-                    if not description:
-                        description = f"PR automático: {current_branch} -> {base_branch}"
+                    print("✅ GitHub CLI autenticado. Tentando criar PR automaticamente...")
                     
                     # Cria PR automaticamente
                     pr_url = create_pr_with_cli(base_branch, current_branch, description)
@@ -493,29 +508,12 @@ def main():
                         print(f"🎉 PR criado com sucesso!")
                         print(f"🔗 URL: {pr_url}")
                         pr_created_successfully = True
+                    else:
+                        print("❌ Não foi possível criar o PR automaticamente.")
+                        print("   Continuando com método manual...")
                 
-                # Fallback: Gera descrição e exibe no terminal + abre no browser
+                # Se não conseguiu criar automaticamente, oferece abrir no navegador
                 if not pr_created_successfully:
-                    description = None
-                    if API_KEY:
-                        print("📝 Gerando descrição para exibição...")
-                        description = generate_pr_description(base_branch, current_branch)
-                    
-                    if description:
-                        print("\n\n" + "="*70)
-                        print("📋 DESCRIÇÃO DO PULL REQUEST")
-                        print("="*70)
-                        print(f"TÍTULO: PR: {current_branch} -> {base_branch}")
-                        print(f"BASE: {base_branch}")
-                        print(f"HEAD: {current_branch}")
-                        print("="*70)
-                        print("DESCRIÇÃO:")
-                        print()
-                        print(description)
-                        print()
-                        print("="*70 + "\n\n")
-                    
-                    # Abre PR no navegador
                     pr_url = get_pr_url(current_branch)
                     if pr_url:
                         open_pr_response = input("🔗 Abrir Pull Request no navegador? (Y/n): ").strip().lower()

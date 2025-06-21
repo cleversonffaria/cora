@@ -423,7 +423,7 @@
         "kind": 2,
         "importPath": "main",
         "description": "main",
-        "peekOfCode": "def create_pr_with_cli(base_branch, current_branch, description):\n    \"\"\"Cria PR usando GitHub CLI\"\"\"\n    try:\n        title = f\"PR: {current_branch} -> {base_branch}\"\n        # Cria arquivo temporário com a descrição\n        with tempfile.NamedTemporaryFile(mode='w', suffix='.md', delete=False, encoding='utf-8') as temp_file:\n            temp_file.write(description)\n            temp_file_path = temp_file.name\n        # Cria o PR usando --body-file\n        pr_url = run_git_command([",
+        "peekOfCode": "def create_pr_with_cli(base_branch, current_branch, description):\n    \"\"\"Cria PR usando GitHub CLI\"\"\"\n    try:\n        title = f'\"PR: {current_branch} to {base_branch}\"'\n        # Cria arquivo temporário com a descrição\n        with tempfile.NamedTemporaryFile(mode='w', suffix='.md', delete=False, encoding='utf-8') as temp_file:\n            temp_file.write(description)\n            temp_file_path = temp_file.name\n        # Cria o PR usando --body-file\n        pr_url = run_git_command([",
         "detail": "main",
         "documentation": {}
     },
