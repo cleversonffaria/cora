@@ -11,11 +11,11 @@ INSTALL_DIR="$HOME/bin"
 PROJECT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" &>/dev/null && pwd)"
 VENV_DIR="$PROJECT_DIR/.venv"
 
-# Get COMMAND_NAME from constants.py
-if [ -f "$PROJECT_DIR/constants.py" ]; then
-  COMMAND_NAME=$(python3 -c "import sys; sys.path.append('$PROJECT_DIR'); from constants import COMMAND_NAME; print(COMMAND_NAME)")
+# Get COMMAND_NAME from utils/constants.py
+if [ -f "$PROJECT_DIR/utils/constants.py" ]; then
+  COMMAND_NAME=$(python3 -c "import sys; sys.path.append('$PROJECT_DIR'); from utils.constants import COMMAND_NAME; print(COMMAND_NAME)")
 else
-  echo -e "${YELLOW}WARNING: constants.py not found. Using default command name 'cora'.${NC}"
+  echo -e "${YELLOW}WARNING: utils/constants.py not found. Using default command name 'cora'.${NC}"
   COMMAND_NAME="cora"
 fi
 

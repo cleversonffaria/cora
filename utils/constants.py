@@ -39,4 +39,4 @@ EXAMPLE_DESCRIPTIONS = {
     "COMMIT_ONLY": "Gera apenas mensagem de commit",
     "BRANCH_COMMIT": "Gera branch + mensagem de commit", 
     "FULL_WORKFLOW": "Fluxo completo: branch + commit + push + PR"
-}
+} 

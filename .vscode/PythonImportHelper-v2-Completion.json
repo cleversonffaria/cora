@@ -1,23 +1,5 @@
 [
     {
-        "label": "subprocess",
-        "kind": 6,
-        "isExtraImport": true,
-        "importPath": "subprocess",
-        "description": "subprocess",
-        "detail": "subprocess",
-        "documentation": {}
-    },
-    {
-        "label": "os",
-        "kind": 6,
-        "isExtraImport": true,
-        "importPath": "os",
-        "description": "os",
-        "detail": "os",
-        "documentation": {}
-    },
-    {
         "label": "argparse",
         "kind": 6,
         "isExtraImport": true,
@@ -27,21 +9,84 @@
         "documentation": {}
     },
     {
-        "label": "sys",
-        "kind": 6,
+        "label": "AIService",
+        "importPath": "core.ai_service",
+        "description": "core.ai_service",
         "isExtraImport": true,
-        "importPath": "sys",
-        "description": "sys",
-        "detail": "sys",
+        "detail": "core.ai_service",
         "documentation": {}
     },
     {
-        "label": "tempfile",
+        "label": "GitService",
+        "importPath": "core.git_service",
+        "description": "core.git_service",
+        "isExtraImport": true,
+        "detail": "core.git_service",
+        "documentation": {}
+    },
+    {
+        "label": "GitService",
+        "importPath": "core.git_service",
+        "description": "core.git_service",
+        "isExtraImport": true,
+        "detail": "core.git_service",
+        "documentation": {}
+    },
+    {
+        "label": "GitHubService",
+        "importPath": "core.github_service",
+        "description": "core.github_service",
+        "isExtraImport": true,
+        "detail": "core.github_service",
+        "documentation": {}
+    },
+    {
+        "label": "UIService",
+        "importPath": "core.ui_service",
+        "description": "core.ui_service",
+        "isExtraImport": true,
+        "detail": "core.ui_service",
+        "documentation": {}
+    },
+    {
+        "label": "UIService",
+        "importPath": "core.ui_service",
+        "description": "core.ui_service",
+        "isExtraImport": true,
+        "detail": "core.ui_service",
+        "documentation": {}
+    },
+    {
+        "label": "OPTION_DESCRIPTIONS",
+        "importPath": "utils.constants",
+        "description": "utils.constants",
+        "isExtraImport": true,
+        "detail": "utils.constants",
+        "documentation": {}
+    },
+    {
+        "label": "*",
+        "importPath": "utils.constants",
+        "description": "utils.constants",
+        "isExtraImport": true,
+        "detail": "utils.constants",
+        "documentation": {}
+    },
+    {
+        "label": "*",
+        "importPath": "utils.constants",
+        "description": "utils.constants",
+        "isExtraImport": true,
+        "detail": "utils.constants",
+        "documentation": {}
+    },
+    {
+        "label": "os",
         "kind": 6,
         "isExtraImport": true,
-        "importPath": "tempfile",
-        "description": "tempfile",
-        "detail": "tempfile",
+        "importPath": "os",
+        "description": "os",
+        "detail": "os",
         "documentation": {}
     },
     {
@@ -61,263 +106,208 @@
         "documentation": {}
     },
     {
-        "label": "*",
-        "importPath": "constants",
-        "description": "constants",
+        "label": "subprocess",
+        "kind": 6,
         "isExtraImport": true,
-        "detail": "constants",
+        "importPath": "subprocess",
+        "description": "subprocess",
+        "detail": "subprocess",
+        "documentation": {}
+    },
+    {
+        "label": "tempfile",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "tempfile",
+        "description": "tempfile",
+        "detail": "tempfile",
+        "documentation": {}
+    },
+    {
+        "label": "SystemUtils",
+        "importPath": "utils.system_utils",
+        "description": "utils.system_utils",
+        "isExtraImport": true,
+        "detail": "utils.system_utils",
+        "documentation": {}
+    },
+    {
+        "label": "sys",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "sys",
+        "description": "sys",
+        "detail": "sys",
+        "documentation": {}
+    },
+    {
+        "label": "CoraCommands",
+        "importPath": "cli.commands",
+        "description": "cli.commands",
+        "isExtraImport": true,
+        "detail": "cli.commands",
+        "documentation": {}
+    },
+    {
+        "label": "CoraCommands",
+        "kind": 6,
+        "importPath": "cli.commands",
+        "description": "cli.commands",
+        "peekOfCode": "class CoraCommands:\n    def __init__(self):\n        self.ai_service = AIService()\n        self.git_service = GitService()\n        self.github_service = GitHubService()\n        self.ui_service = UIService()\n    def parse_arguments(self):\n        parser = argparse.ArgumentParser(description=\"Assistente de fluxo de trabalho Git com IA\", add_help=False)\n        parser.add_argument(\"--branch\", \"-b\", action=\"store_true\", help=\"Cria uma nova branch\")\n        parser.add_argument(\"--commit\", \"-c\", action=\"store_true\", help=\"Gera e executa commit\")",
+        "detail": "cli.commands",
+        "documentation": {}
+    },
+    {
+        "label": "AIService",
+        "kind": 6,
+        "importPath": "core.ai_service",
+        "description": "core.ai_service",
+        "peekOfCode": "class AIService:\n    def __init__(self):\n        self.api_key = os.getenv(API_KEY_VAR)\n        self.api_base_url = os.getenv(API_BASE_URL_VAR)\n        self.model = os.getenv(MODEL_VAR)\n        client_kwargs = {\"api_key\": self.api_key}\n        if self.api_base_url:\n            client_kwargs[\"base_url\"] = self.api_base_url\n        self.client = OpenAI(**client_kwargs)\n    def is_configured(self):",
+        "detail": "core.ai_service",
+        "documentation": {}
+    },
+    {
+        "label": "GitService",
+        "kind": 6,
+        "importPath": "core.git_service",
+        "description": "core.git_service",
+        "peekOfCode": "class GitService:\n    def __init__(self):\n        pass\n    def run_command(self, command, check=True):\n        try:\n            result = subprocess.run(\n                command,\n                stdout=subprocess.PIPE,\n                stderr=subprocess.PIPE,\n                text=True,",
+        "detail": "core.git_service",
+        "documentation": {}
+    },
+    {
+        "label": "GitHubService",
+        "kind": 6,
+        "importPath": "core.github_service",
+        "description": "core.github_service",
+        "peekOfCode": "class GitHubService:\n    def __init__(self):\n        self.git_service = GitService()\n        self.system_utils = SystemUtils()\n    def check_cli_available(self):\n        try:\n            self.git_service.run_command([\"gh\", \"--version\"])\n            self.git_service.run_command([\"gh\", \"auth\", \"status\"])\n            self.git_service.run_command([\"gh\", \"repo\", \"view\"])\n            return True",
+        "detail": "core.github_service",
+        "documentation": {}
+    },
+    {
+        "label": "UIService",
+        "kind": 6,
+        "importPath": "core.ui_service",
+        "description": "core.ui_service",
+        "peekOfCode": "class UIService:\n    def __init__(self):\n        pass\n    def show_version(self):\n        print(f\"🤖 {COMMAND_NAME.title()} v{VERSION}\")\n        print(\"Assistente de fluxo de trabalho Git com IA\")\n        print(REPOSITORY_URL)\n    def show_welcome(self):\n        print(f\"\"\"\n🤖 {MESSAGES[\"WELCOME_TITLE\"].format(command_name=COMMAND_NAME.title(), version=VERSION)}",
+        "detail": "core.ui_service",
         "documentation": {}
     },
     {
         "label": "VERSION",
         "kind": 5,
-        "importPath": "constants",
-        "description": "constants",
+        "importPath": "utils.constants",
+        "description": "utils.constants",
         "peekOfCode": "VERSION = \"1.0.0\"\nCOMMAND_NAME = \"cora\"\nREPOSITORY_URL = f\"https://github.com/cleversonffaria/{COMMAND_NAME}\"\n# API Configuration - estes serão substituídos pelos valores .env\nAPI_KEY_VAR = \"API_KEY\"\nAPI_BASE_URL_VAR = \"API_BASE_URL\"\nMODEL_VAR = \"MODEL\"\nDEFAULT_TEMPERATURE = 0.3\nDEFAULT_BRANCH_TEMPERATURE = 0.5\nMESSAGES = {",
-        "detail": "constants",
+        "detail": "utils.constants",
         "documentation": {}
     },
     {
         "label": "COMMAND_NAME",
         "kind": 5,
-        "importPath": "constants",
-        "description": "constants",
+        "importPath": "utils.constants",
+        "description": "utils.constants",
         "peekOfCode": "COMMAND_NAME = \"cora\"\nREPOSITORY_URL = f\"https://github.com/cleversonffaria/{COMMAND_NAME}\"\n# API Configuration - estes serão substituídos pelos valores .env\nAPI_KEY_VAR = \"API_KEY\"\nAPI_BASE_URL_VAR = \"API_BASE_URL\"\nMODEL_VAR = \"MODEL\"\nDEFAULT_TEMPERATURE = 0.3\nDEFAULT_BRANCH_TEMPERATURE = 0.5\nMESSAGES = {\n    \"WELCOME_TITLE\": \"Bem-vindo ao {command_name} v{version}!\",",
-        "detail": "constants",
+        "detail": "utils.constants",
         "documentation": {}
     },
     {
         "label": "REPOSITORY_URL",
         "kind": 5,
-        "importPath": "constants",
-        "description": "constants",
+        "importPath": "utils.constants",
+        "description": "utils.constants",
         "peekOfCode": "REPOSITORY_URL = f\"https://github.com/cleversonffaria/{COMMAND_NAME}\"\n# API Configuration - estes serão substituídos pelos valores .env\nAPI_KEY_VAR = \"API_KEY\"\nAPI_BASE_URL_VAR = \"API_BASE_URL\"\nMODEL_VAR = \"MODEL\"\nDEFAULT_TEMPERATURE = 0.3\nDEFAULT_BRANCH_TEMPERATURE = 0.5\nMESSAGES = {\n    \"WELCOME_TITLE\": \"Bem-vindo ao {command_name} v{version}!\",\n    \"WELCOME_SUBTITLE\": \"Seu assistente de IA para desenvolvimento Git produtivo\",",
-        "detail": "constants",
+        "detail": "utils.constants",
         "documentation": {}
     },
     {
         "label": "API_KEY_VAR",
         "kind": 5,
-        "importPath": "constants",
-        "description": "constants",
+        "importPath": "utils.constants",
+        "description": "utils.constants",
         "peekOfCode": "API_KEY_VAR = \"API_KEY\"\nAPI_BASE_URL_VAR = \"API_BASE_URL\"\nMODEL_VAR = \"MODEL\"\nDEFAULT_TEMPERATURE = 0.3\nDEFAULT_BRANCH_TEMPERATURE = 0.5\nMESSAGES = {\n    \"WELCOME_TITLE\": \"Bem-vindo ao {command_name} v{version}!\",\n    \"WELCOME_SUBTITLE\": \"Seu assistente de IA para desenvolvimento Git produtivo\",\n    \"API_KEY_NOT_SET\": \"❌ API_KEY não configurada.\",\n    \"API_KEY_HELP\": \"   Por favor, defina-a no arquivo .env ou no seu ambiente.\",",
-        "detail": "constants",
+        "detail": "utils.constants",
         "documentation": {}
     },
     {
         "label": "API_BASE_URL_VAR",
         "kind": 5,
-        "importPath": "constants",
-        "description": "constants",
+        "importPath": "utils.constants",
+        "description": "utils.constants",
         "peekOfCode": "API_BASE_URL_VAR = \"API_BASE_URL\"\nMODEL_VAR = \"MODEL\"\nDEFAULT_TEMPERATURE = 0.3\nDEFAULT_BRANCH_TEMPERATURE = 0.5\nMESSAGES = {\n    \"WELCOME_TITLE\": \"Bem-vindo ao {command_name} v{version}!\",\n    \"WELCOME_SUBTITLE\": \"Seu assistente de IA para desenvolvimento Git produtivo\",\n    \"API_KEY_NOT_SET\": \"❌ API_KEY não configurada.\",\n    \"API_KEY_HELP\": \"   Por favor, defina-a no arquivo .env ou no seu ambiente.\",\n    \"NO_CHANGES\": \"✅ Não há alterações para commit.\",",
-        "detail": "constants",
+        "detail": "utils.constants",
         "documentation": {}
     },
     {
         "label": "MODEL_VAR",
         "kind": 5,
-        "importPath": "constants",
-        "description": "constants",
+        "importPath": "utils.constants",
+        "description": "utils.constants",
         "peekOfCode": "MODEL_VAR = \"MODEL\"\nDEFAULT_TEMPERATURE = 0.3\nDEFAULT_BRANCH_TEMPERATURE = 0.5\nMESSAGES = {\n    \"WELCOME_TITLE\": \"Bem-vindo ao {command_name} v{version}!\",\n    \"WELCOME_SUBTITLE\": \"Seu assistente de IA para desenvolvimento Git produtivo\",\n    \"API_KEY_NOT_SET\": \"❌ API_KEY não configurada.\",\n    \"API_KEY_HELP\": \"   Por favor, defina-a no arquivo .env ou no seu ambiente.\",\n    \"NO_CHANGES\": \"✅ Não há alterações para commit.\",\n    \"OPERATION_CANCELLED\": \"🚫 Operação cancelada pelo usuário. Saindo.\"",
-        "detail": "constants",
+        "detail": "utils.constants",
         "documentation": {}
     },
     {
         "label": "DEFAULT_TEMPERATURE",
         "kind": 5,
-        "importPath": "constants",
-        "description": "constants",
+        "importPath": "utils.constants",
+        "description": "utils.constants",
         "peekOfCode": "DEFAULT_TEMPERATURE = 0.3\nDEFAULT_BRANCH_TEMPERATURE = 0.5\nMESSAGES = {\n    \"WELCOME_TITLE\": \"Bem-vindo ao {command_name} v{version}!\",\n    \"WELCOME_SUBTITLE\": \"Seu assistente de IA para desenvolvimento Git produtivo\",\n    \"API_KEY_NOT_SET\": \"❌ API_KEY não configurada.\",\n    \"API_KEY_HELP\": \"   Por favor, defina-a no arquivo .env ou no seu ambiente.\",\n    \"NO_CHANGES\": \"✅ Não há alterações para commit.\",\n    \"OPERATION_CANCELLED\": \"🚫 Operação cancelada pelo usuário. Saindo.\"\n}",
-        "detail": "constants",
+        "detail": "utils.constants",
         "documentation": {}
     },
     {
         "label": "DEFAULT_BRANCH_TEMPERATURE",
         "kind": 5,
-        "importPath": "constants",
-        "description": "constants",
+        "importPath": "utils.constants",
+        "description": "utils.constants",
         "peekOfCode": "DEFAULT_BRANCH_TEMPERATURE = 0.5\nMESSAGES = {\n    \"WELCOME_TITLE\": \"Bem-vindo ao {command_name} v{version}!\",\n    \"WELCOME_SUBTITLE\": \"Seu assistente de IA para desenvolvimento Git produtivo\",\n    \"API_KEY_NOT_SET\": \"❌ API_KEY não configurada.\",\n    \"API_KEY_HELP\": \"   Por favor, defina-a no arquivo .env ou no seu ambiente.\",\n    \"NO_CHANGES\": \"✅ Não há alterações para commit.\",\n    \"OPERATION_CANCELLED\": \"🚫 Operação cancelada pelo usuário. Saindo.\"\n}\nHELP_SECTIONS = {",
-        "detail": "constants",
+        "detail": "utils.constants",
         "documentation": {}
     },
     {
         "label": "MESSAGES",
         "kind": 5,
-        "importPath": "constants",
-        "description": "constants",
+        "importPath": "utils.constants",
+        "description": "utils.constants",
         "peekOfCode": "MESSAGES = {\n    \"WELCOME_TITLE\": \"Bem-vindo ao {command_name} v{version}!\",\n    \"WELCOME_SUBTITLE\": \"Seu assistente de IA para desenvolvimento Git produtivo\",\n    \"API_KEY_NOT_SET\": \"❌ API_KEY não configurada.\",\n    \"API_KEY_HELP\": \"   Por favor, defina-a no arquivo .env ou no seu ambiente.\",\n    \"NO_CHANGES\": \"✅ Não há alterações para commit.\",\n    \"OPERATION_CANCELLED\": \"🚫 Operação cancelada pelo usuário. Saindo.\"\n}\nHELP_SECTIONS = {\n    \"USAGE\": \"📋 USO:\",",
-        "detail": "constants",
+        "detail": "utils.constants",
         "documentation": {}
     },
     {
         "label": "HELP_SECTIONS",
         "kind": 5,
-        "importPath": "constants",
-        "description": "constants",
+        "importPath": "utils.constants",
+        "description": "utils.constants",
         "peekOfCode": "HELP_SECTIONS = {\n    \"USAGE\": \"📋 USO:\",\n    \"OPTIONS\": \"🔧 OPÇÕES:\",\n    \"EXAMPLES\": \"✨ EXEMPLOS:\",\n    \"SETUP\": \"🔑 CONFIGURAÇÃO:\",\n    \"NOTE\": \"💡 NOTA:\"\n}\nOPTION_DESCRIPTIONS = {\n    \"BRANCH\": \"Gera um nome de branch antes de fazer commit\",\n    \"PR\": \"Cria pull request automaticamente ou abre no navegador\",",
-        "detail": "constants",
+        "detail": "utils.constants",
         "documentation": {}
     },
     {
         "label": "OPTION_DESCRIPTIONS",
         "kind": 5,
-        "importPath": "constants",
-        "description": "constants",
+        "importPath": "utils.constants",
+        "description": "utils.constants",
         "peekOfCode": "OPTION_DESCRIPTIONS = {\n    \"BRANCH\": \"Gera um nome de branch antes de fazer commit\",\n    \"PR\": \"Cria pull request automaticamente ou abre no navegador\",\n    \"VERSION\": \"Mostra informações da versão\",\n    \"HELP\": \"Mostra esta mensagem de ajuda\"\n}\nEXAMPLE_DESCRIPTIONS = {\n    \"COMMIT_ONLY\": \"Gera apenas mensagem de commit\",\n    \"BRANCH_COMMIT\": \"Gera branch + mensagem de commit\", \n    \"FULL_WORKFLOW\": \"Fluxo completo: branch + commit + push + PR\"",
-        "detail": "constants",
+        "detail": "utils.constants",
         "documentation": {}
     },
     {
         "label": "EXAMPLE_DESCRIPTIONS",
         "kind": 5,
-        "importPath": "constants",
-        "description": "constants",
+        "importPath": "utils.constants",
+        "description": "utils.constants",
         "peekOfCode": "EXAMPLE_DESCRIPTIONS = {\n    \"COMMIT_ONLY\": \"Gera apenas mensagem de commit\",\n    \"BRANCH_COMMIT\": \"Gera branch + mensagem de commit\", \n    \"FULL_WORKFLOW\": \"Fluxo completo: branch + commit + push + PR\"\n}",
-        "detail": "constants",
+        "detail": "utils.constants",
         "documentation": {}
     },
     {
-        "label": "show_version",
-        "kind": 2,
-        "importPath": "main",
-        "description": "main",
-        "peekOfCode": "def show_version():\n    print(f\"🤖 {COMMAND_NAME.title()} v{VERSION}\")\n    print(\"Assistente de fluxo de trabalho Git com IA\")\n    print(REPOSITORY_URL)\ndef show_welcome():\n    print(f\"\"\"\n🤖 {MESSAGES[\"WELCOME_TITLE\"].format(command_name=COMMAND_NAME.title(), version=VERSION)}\n✨ {MESSAGES[\"WELCOME_SUBTITLE\"]}\n🚀 {COMMAND_NAME.title()} ajuda você a:\n   • Gerar mensagens de commit profissionais automaticamente",
-        "detail": "main",
-        "documentation": {}
-    },
-    {
-        "label": "show_welcome",
-        "kind": 2,
-        "importPath": "main",
-        "description": "main",
-        "peekOfCode": "def show_welcome():\n    print(f\"\"\"\n🤖 {MESSAGES[\"WELCOME_TITLE\"].format(command_name=COMMAND_NAME.title(), version=VERSION)}\n✨ {MESSAGES[\"WELCOME_SUBTITLE\"]}\n🚀 {COMMAND_NAME.title()} ajuda você a:\n   • Gerar mensagens de commit profissionais automaticamente\n   • Criar nomes de branches descritivos e organizados  \n   • Automatizar seu fluxo de trabalho Git completo\n   • Economizar tempo e manter consistência no projeto\n💡 Para começar:",
-        "detail": "main",
-        "documentation": {}
-    },
-    {
-        "label": "show_help",
-        "kind": 2,
-        "importPath": "main",
-        "description": "main",
-        "peekOfCode": "def show_help():\n    print(f\"\"\"🤖 {COMMAND_NAME.title()} v{VERSION} - Assistente de Git com IA\n{HELP_SECTIONS[\"USAGE\"]}\n  {COMMAND_NAME} [OPÇÕES]\n{HELP_SECTIONS[\"OPTIONS\"]}\n  -b, --branch         Cria uma nova branch\n  -c, --commit         Gera e executa commit\n  -pr, --pull-request  {OPTION_DESCRIPTIONS[\"PR\"]}\n  -v, --version        {OPTION_DESCRIPTIONS[\"VERSION\"]}\n      -h, --help           {OPTION_DESCRIPTIONS[\"HELP\"]}",
-        "detail": "main",
-        "documentation": {}
-    },
-    {
-        "label": "run_git_command",
-        "kind": 2,
-        "importPath": "main",
-        "description": "main",
-        "peekOfCode": "def run_git_command(command, check=True):\n    try:\n        result = subprocess.run(\n            command,\n            stdout=subprocess.PIPE,\n            stderr=subprocess.PIPE,\n            text=True,\n            check=check,\n            encoding='utf-8'\n        )",
-        "detail": "main",
-        "documentation": {}
-    },
-    {
-        "label": "get_git_diff",
-        "kind": 2,
-        "importPath": "main",
-        "description": "main",
-        "peekOfCode": "def get_git_diff():\n    run_git_command([\"git\", \"add\", \".\"])\n    diff = run_git_command([\"git\", \"diff\", \"--cached\"])\n    return diff\ndef get_ai_suggestion(prompt, model=None, temperature=DEFAULT_TEMPERATURE):\n    if model is None:\n        model = MODEL\n    try:\n        response = client.chat.completions.create(\n            model=model,",
-        "detail": "main",
-        "documentation": {}
-    },
-    {
-        "label": "get_ai_suggestion",
-        "kind": 2,
-        "importPath": "main",
-        "description": "main",
-        "peekOfCode": "def get_ai_suggestion(prompt, model=None, temperature=DEFAULT_TEMPERATURE):\n    if model is None:\n        model = MODEL\n    try:\n        response = client.chat.completions.create(\n            model=model,\n            messages=[{\"role\": \"user\", \"content\": prompt}],\n            temperature=temperature,\n        )\n        return response.choices[0].message.content.strip().replace(\"`\", \"\")",
-        "detail": "main",
-        "documentation": {}
-    },
-    {
-        "label": "generate_commit_message",
-        "kind": 2,
-        "importPath": "main",
-        "description": "main",
-        "peekOfCode": "def generate_commit_message(diff, temperature=DEFAULT_TEMPERATURE, history=None):\n    prompt = (\n        \"You are an assistant that generates commit messages in the conventional commits format.\\n\"\n        \"Based on the git diff below, identify the MOST SIGNIFICANT change and generate a short, clear commit message in English about it.\\n\"\n        \"Focus on the main purpose of the change.\\n\"\n        \"Use prefixes like feat, fix, chore, refactor, test, docs, style, perf, ci, build, revert etc.\\n\"\n        \"Only the message, with no extra explanations or remarks.\\n\"\n        \"Generate ONLY ONE commit message, with no line breaks or special formatting.\\n\"\n        \"Nothing but a commit message.\"\n    )",
-        "detail": "main",
-        "documentation": {}
-    },
-    {
-        "label": "generate_branch_name",
-        "kind": 2,
-        "importPath": "main",
-        "description": "main",
-        "peekOfCode": "def generate_branch_name(diff, temperature=DEFAULT_BRANCH_TEMPERATURE, history=None):\n    prompt = (\n        \"You are an assistant that generates Git branch names.\\n\"\n        \"Based on the git diff below, identify the MOST SIGNIFICANT change and generate a short, descriptive branch name in English for it, \"\n        \"using hyphens to separate words and following the 'type/short-description' format.\\n\"\n        \"The name should reflect the main purpose of the changes.\\n\"\n        \"Use prefixes like feat/, fix/, chore/, refactor/, test/, docs/, style/, perf/, ci/, build/, revert/.\\n\"\n        \"Examples: feat/add-user-login, fix/resolve-payment-bug, chore/update-dependencies.\\n\"\n        \"Generate ONLY the branch name, with no extra explanations or remarks.\"\n    )",
-        "detail": "main",
-        "documentation": {}
-    },
-    {
-        "label": "user_interaction_loop",
-        "kind": 2,
-        "importPath": "main",
-        "description": "main",
-        "peekOfCode": "def user_interaction_loop(prompt_question, generation_function, diff):\n    if \"branch\" in prompt_question.lower():\n        suggested_temperature = DEFAULT_BRANCH_TEMPERATURE\n    else:\n        suggested_temperature = DEFAULT_TEMPERATURE\n    previous_suggestions = []\n    while True:\n        suggestion = generation_function(\n            diff,\n            temperature=suggested_temperature,",
-        "detail": "main",
-        "documentation": {}
-    },
-    {
-        "label": "open_in_browser",
-        "kind": 2,
-        "importPath": "main",
-        "description": "main",
-        "peekOfCode": "def open_in_browser(url):\n    command = []\n    if sys.platform.startswith('linux'):\n        command = ['xdg-open', url]\n    elif sys.platform == 'darwin':\n        command = ['open', url]\n    elif sys.platform == 'win32':\n        command = ['start', url]\n    if not command:\n        return False",
-        "detail": "main",
-        "documentation": {}
-    },
-    {
-        "label": "generate_pr_description",
-        "kind": 2,
-        "importPath": "main",
-        "description": "main",
-        "peekOfCode": "def generate_pr_description(base_branch, current_branch):\n    \"\"\"Gera descrição detalhada do PR usando IA baseado no diff\"\"\"\n    print(\"🤖 Gerando descrição do PR...\")\n    # Gera diff entre as branches\n    try:\n        diff = run_git_command([\"git\", \"diff\", f\"{base_branch}..{current_branch}\"])\n        if not diff:\n            print(\"⚠️ Nenhuma diferença encontrada entre as branches.\")\n            return None\n    except:",
-        "detail": "main",
-        "documentation": {}
-    },
-    {
-        "label": "check_github_cli",
-        "kind": 2,
-        "importPath": "main",
-        "description": "main",
-        "peekOfCode": "def check_github_cli():\n    \"\"\"Verifica se GitHub CLI está instalado e autenticado\"\"\"\n    try:\n        # Verifica se gh está instalado\n        run_git_command([\"gh\", \"--version\"])\n        # Verifica se está autenticado\n        run_git_command([\"gh\", \"auth\", \"status\"])\n        # Verifica se consegue acessar o repositório\n        run_git_command([\"gh\", \"repo\", \"view\"])\n        return True",
-        "detail": "main",
-        "documentation": {}
-    },
-    {
-        "label": "create_pr_with_cli",
-        "kind": 2,
-        "importPath": "main",
-        "description": "main",
-        "peekOfCode": "def create_pr_with_cli(base_branch, current_branch, description):\n    \"\"\"Cria PR usando GitHub CLI\"\"\"\n    try:\n        title = f'\"PR: {current_branch} to {base_branch}\"'\n        # Cria arquivo temporário com a descrição\n        with tempfile.NamedTemporaryFile(mode='w', suffix='.md', delete=False, encoding='utf-8') as temp_file:\n            temp_file.write(description)\n            temp_file_path = temp_file.name\n        # Cria o PR usando --body-file\n        pr_url = run_git_command([",
-        "detail": "main",
-        "documentation": {}
-    },
-    {
-        "label": "get_current_branch",
-        "kind": 2,
-        "importPath": "main",
-        "description": "main",
-        "peekOfCode": "def get_current_branch():\n    \"\"\"Retorna a branch atual\"\"\"\n    try:\n        return run_git_command([\"git\", \"rev-parse\", \"--abbrev-ref\", \"HEAD\"])\n    except:\n        return None\ndef get_local_branches():\n    \"\"\"Retorna lista de branches locais, excluindo as com '/'\"\"\"\n    try:\n        branches_output = run_git_command([\"git\", \"branch\", \"--list\"])",
-        "detail": "main",
-        "documentation": {}
-    },
-    {
-        "label": "get_local_branches",
-        "kind": 2,
-        "importPath": "main",
-        "description": "main",
-        "peekOfCode": "def get_local_branches():\n    \"\"\"Retorna lista de branches locais, excluindo as com '/'\"\"\"\n    try:\n        branches_output = run_git_command([\"git\", \"branch\", \"--list\"])\n        branches = []\n        for line in branches_output.split('\\n'):\n            branch = line.strip().replace('*', '').strip()\n            if branch and '/' not in branch:\n                branches.append(branch)\n        return branches",
-        "detail": "main",
-        "documentation": {}
-    },
-    {
-        "label": "get_pr_url",
-        "kind": 2,
-        "importPath": "main",
-        "description": "main",
-        "peekOfCode": "def get_pr_url(branch_name):\n    try:\n        remote_url = run_git_command([\"git\", \"config\", \"--get\", \"remote.origin.url\"])\n        if not remote_url:\n            return None\n        if remote_url.startswith(\"https://\"):\n            repo_path = remote_url.replace(\"https://github.com/\", \"\").replace(\".git\", \"\")\n        elif remote_url.startswith(\"git@\"):\n            repo_path = remote_url.replace(\"git@github.com:\", \"\").replace(\".git\", \"\")\n        else:",
-        "detail": "main",
+        "label": "SystemUtils",
+        "kind": 6,
+        "importPath": "utils.system_utils",
+        "description": "utils.system_utils",
+        "peekOfCode": "class SystemUtils:\n    def __init__(self):\n        pass\n    def open_in_browser(self, url):\n        command = []\n        if sys.platform.startswith('linux'):\n            command = ['xdg-open', url]\n        elif sys.platform == 'darwin':\n            command = ['open', url]\n        elif sys.platform == 'win32':",
+        "detail": "utils.system_utils",
         "documentation": {}
     },
     {
@@ -325,52 +315,7 @@
         "kind": 2,
         "importPath": "main",
         "description": "main",
-        "peekOfCode": "def main():\n    parser = argparse.ArgumentParser(description=\"Assistente de fluxo de trabalho Git com IA\", add_help=False)\n    parser.add_argument(\"--branch\", \"-b\", action=\"store_true\", help=\"Cria uma nova branch\")\n    parser.add_argument(\"--commit\", \"-c\", action=\"store_true\", help=\"Gera e executa commit\")\n    parser.add_argument(\"--pull-request\", \"-pr\", action=\"store_true\", help=OPTION_DESCRIPTIONS[\"PR\"])\n    parser.add_argument(\"--version\", \"-v\", \"--v\", \"-version\", action=\"store_true\", help=OPTION_DESCRIPTIONS[\"VERSION\"])\n    parser.add_argument(\"--help\", \"-h\", action=\"store_true\", help=OPTION_DESCRIPTIONS[\"HELP\"])\n    args = parser.parse_args()\n    # Handle help and version first\n    if args.help:",
-        "detail": "main",
-        "documentation": {}
-    },
-    {
-        "label": "API_KEY",
-        "kind": 5,
-        "importPath": "main",
-        "description": "main",
-        "peekOfCode": "API_KEY = os.getenv(API_KEY_VAR)\nAPI_BASE_URL = os.getenv(API_BASE_URL_VAR)\nMODEL = os.getenv(MODEL_VAR)\n# Initialize client with dynamic configuration\nclient_kwargs = {\"api_key\": API_KEY}\nif API_BASE_URL:\n    client_kwargs[\"base_url\"] = API_BASE_URL\nclient = OpenAI(**client_kwargs)\ndef show_version():\n    print(f\"🤖 {COMMAND_NAME.title()} v{VERSION}\")",
-        "detail": "main",
-        "documentation": {}
-    },
-    {
-        "label": "API_BASE_URL",
-        "kind": 5,
-        "importPath": "main",
-        "description": "main",
-        "peekOfCode": "API_BASE_URL = os.getenv(API_BASE_URL_VAR)\nMODEL = os.getenv(MODEL_VAR)\n# Initialize client with dynamic configuration\nclient_kwargs = {\"api_key\": API_KEY}\nif API_BASE_URL:\n    client_kwargs[\"base_url\"] = API_BASE_URL\nclient = OpenAI(**client_kwargs)\ndef show_version():\n    print(f\"🤖 {COMMAND_NAME.title()} v{VERSION}\")\n    print(\"Assistente de fluxo de trabalho Git com IA\")",
-        "detail": "main",
-        "documentation": {}
-    },
-    {
-        "label": "MODEL",
-        "kind": 5,
-        "importPath": "main",
-        "description": "main",
-        "peekOfCode": "MODEL = os.getenv(MODEL_VAR)\n# Initialize client with dynamic configuration\nclient_kwargs = {\"api_key\": API_KEY}\nif API_BASE_URL:\n    client_kwargs[\"base_url\"] = API_BASE_URL\nclient = OpenAI(**client_kwargs)\ndef show_version():\n    print(f\"🤖 {COMMAND_NAME.title()} v{VERSION}\")\n    print(\"Assistente de fluxo de trabalho Git com IA\")\n    print(REPOSITORY_URL)",
-        "detail": "main",
-        "documentation": {}
-    },
-    {
-        "label": "client_kwargs",
-        "kind": 5,
-        "importPath": "main",
-        "description": "main",
-        "peekOfCode": "client_kwargs = {\"api_key\": API_KEY}\nif API_BASE_URL:\n    client_kwargs[\"base_url\"] = API_BASE_URL\nclient = OpenAI(**client_kwargs)\ndef show_version():\n    print(f\"🤖 {COMMAND_NAME.title()} v{VERSION}\")\n    print(\"Assistente de fluxo de trabalho Git com IA\")\n    print(REPOSITORY_URL)\ndef show_welcome():\n    print(f\"\"\"",
-        "detail": "main",
-        "documentation": {}
-    },
-    {
-        "label": "client",
-        "kind": 5,
-        "importPath": "main",
-        "description": "main",
-        "peekOfCode": "client = OpenAI(**client_kwargs)\ndef show_version():\n    print(f\"🤖 {COMMAND_NAME.title()} v{VERSION}\")\n    print(\"Assistente de fluxo de trabalho Git com IA\")\n    print(REPOSITORY_URL)\ndef show_welcome():\n    print(f\"\"\"\n🤖 {MESSAGES[\"WELCOME_TITLE\"].format(command_name=COMMAND_NAME.title(), version=VERSION)}\n✨ {MESSAGES[\"WELCOME_SUBTITLE\"]}\n🚀 {COMMAND_NAME.title()} ajuda você a:",
+        "peekOfCode": "def main():\n    ui_service = UIService()\n    cora_commands = CoraCommands()\n    try:\n        cora_commands.execute()\n    except KeyboardInterrupt:\n        ui_service.show_operation_cancelled()\n        exit(130)\nif __name__ == \"__main__\":\n    main()",
         "detail": "main",
         "documentation": {}
     }
