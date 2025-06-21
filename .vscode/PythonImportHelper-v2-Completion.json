@@ -198,7 +198,7 @@
         "kind": 5,
         "importPath": "constants",
         "description": "constants",
-        "peekOfCode": "VERSION = \"1.0.0\"\nCOMMAND_NAME = \"cora\"\nREPOSITORY_URL = f\"https://github.com/cleversonffaria/{COMMAND_NAME}\"\nDEFAULT_MODEL = \"gpt-4o-mini\"\nDEFAULT_TEMPERATURE = 0.3\nDEFAULT_BRANCH_TEMPERATURE = 0.5\n# API Configuration - these will be overridden by .env values\nAPI_KEY_VAR = \"API_KEY\"\nAPI_BASE_URL_VAR = \"API_BASE_URL\"\nMODEL_VAR = \"MODEL\"",
+        "peekOfCode": "VERSION = \"1.0.0\"\nCOMMAND_NAME = \"cora\"\nREPOSITORY_URL = f\"https://github.com/cleversonffaria/{COMMAND_NAME}\"\n# API Configuration - estes serão substituídos pelos valores .env\nAPI_KEY_VAR = \"API_KEY\"\nAPI_BASE_URL_VAR = \"API_BASE_URL\"\nMODEL_VAR = \"MODEL\"\nDEFAULT_TEMPERATURE = 0.3\nDEFAULT_BRANCH_TEMPERATURE = 0.5\nMESSAGES = {",
         "detail": "constants",
         "documentation": {}
     },
@@ -207,7 +207,7 @@
         "kind": 5,
         "importPath": "constants",
         "description": "constants",
-        "peekOfCode": "COMMAND_NAME = \"cora\"\nREPOSITORY_URL = f\"https://github.com/cleversonffaria/{COMMAND_NAME}\"\nDEFAULT_MODEL = \"gpt-4o-mini\"\nDEFAULT_TEMPERATURE = 0.3\nDEFAULT_BRANCH_TEMPERATURE = 0.5\n# API Configuration - these will be overridden by .env values\nAPI_KEY_VAR = \"API_KEY\"\nAPI_BASE_URL_VAR = \"API_BASE_URL\"\nMODEL_VAR = \"MODEL\"\nMESSAGES = {",
+        "peekOfCode": "COMMAND_NAME = \"cora\"\nREPOSITORY_URL = f\"https://github.com/cleversonffaria/{COMMAND_NAME}\"\n# API Configuration - estes serão substituídos pelos valores .env\nAPI_KEY_VAR = \"API_KEY\"\nAPI_BASE_URL_VAR = \"API_BASE_URL\"\nMODEL_VAR = \"MODEL\"\nDEFAULT_TEMPERATURE = 0.3\nDEFAULT_BRANCH_TEMPERATURE = 0.5\nMESSAGES = {\n    \"WELCOME_TITLE\": \"Bem-vindo ao {command_name} v{version}!\",",
         "detail": "constants",
         "documentation": {}
     },
@@ -216,34 +216,7 @@
         "kind": 5,
         "importPath": "constants",
         "description": "constants",
-        "peekOfCode": "REPOSITORY_URL = f\"https://github.com/cleversonffaria/{COMMAND_NAME}\"\nDEFAULT_MODEL = \"gpt-4o-mini\"\nDEFAULT_TEMPERATURE = 0.3\nDEFAULT_BRANCH_TEMPERATURE = 0.5\n# API Configuration - these will be overridden by .env values\nAPI_KEY_VAR = \"API_KEY\"\nAPI_BASE_URL_VAR = \"API_BASE_URL\"\nMODEL_VAR = \"MODEL\"\nMESSAGES = {\n    \"WELCOME_TITLE\": \"Bem-vindo ao {command_name} v{version}!\",",
-        "detail": "constants",
-        "documentation": {}
-    },
-    {
-        "label": "DEFAULT_MODEL",
-        "kind": 5,
-        "importPath": "constants",
-        "description": "constants",
-        "peekOfCode": "DEFAULT_MODEL = \"gpt-4o-mini\"\nDEFAULT_TEMPERATURE = 0.3\nDEFAULT_BRANCH_TEMPERATURE = 0.5\n# API Configuration - these will be overridden by .env values\nAPI_KEY_VAR = \"API_KEY\"\nAPI_BASE_URL_VAR = \"API_BASE_URL\"\nMODEL_VAR = \"MODEL\"\nMESSAGES = {\n    \"WELCOME_TITLE\": \"Bem-vindo ao {command_name} v{version}!\",\n    \"WELCOME_SUBTITLE\": \"Seu assistente de IA para desenvolvimento Git produtivo\",",
-        "detail": "constants",
-        "documentation": {}
-    },
-    {
-        "label": "DEFAULT_TEMPERATURE",
-        "kind": 5,
-        "importPath": "constants",
-        "description": "constants",
-        "peekOfCode": "DEFAULT_TEMPERATURE = 0.3\nDEFAULT_BRANCH_TEMPERATURE = 0.5\n# API Configuration - these will be overridden by .env values\nAPI_KEY_VAR = \"API_KEY\"\nAPI_BASE_URL_VAR = \"API_BASE_URL\"\nMODEL_VAR = \"MODEL\"\nMESSAGES = {\n    \"WELCOME_TITLE\": \"Bem-vindo ao {command_name} v{version}!\",\n    \"WELCOME_SUBTITLE\": \"Seu assistente de IA para desenvolvimento Git produtivo\",\n    \"API_KEY_NOT_SET\": \"❌ API_KEY environment variable not set.\",",
-        "detail": "constants",
-        "documentation": {}
-    },
-    {
-        "label": "DEFAULT_BRANCH_TEMPERATURE",
-        "kind": 5,
-        "importPath": "constants",
-        "description": "constants",
-        "peekOfCode": "DEFAULT_BRANCH_TEMPERATURE = 0.5\n# API Configuration - these will be overridden by .env values\nAPI_KEY_VAR = \"API_KEY\"\nAPI_BASE_URL_VAR = \"API_BASE_URL\"\nMODEL_VAR = \"MODEL\"\nMESSAGES = {\n    \"WELCOME_TITLE\": \"Bem-vindo ao {command_name} v{version}!\",\n    \"WELCOME_SUBTITLE\": \"Seu assistente de IA para desenvolvimento Git produtivo\",\n    \"API_KEY_NOT_SET\": \"❌ API_KEY environment variable not set.\",\n    \"API_KEY_HELP\": \"   Please define it in your .env file or your environment.\",",
+        "peekOfCode": "REPOSITORY_URL = f\"https://github.com/cleversonffaria/{COMMAND_NAME}\"\n# API Configuration - estes serão substituídos pelos valores .env\nAPI_KEY_VAR = \"API_KEY\"\nAPI_BASE_URL_VAR = \"API_BASE_URL\"\nMODEL_VAR = \"MODEL\"\nDEFAULT_TEMPERATURE = 0.3\nDEFAULT_BRANCH_TEMPERATURE = 0.5\nMESSAGES = {\n    \"WELCOME_TITLE\": \"Bem-vindo ao {command_name} v{version}!\",\n    \"WELCOME_SUBTITLE\": \"Seu assistente de IA para desenvolvimento Git produtivo\",",
         "detail": "constants",
         "documentation": {}
     },
@@ -252,7 +225,7 @@
         "kind": 5,
         "importPath": "constants",
         "description": "constants",
-        "peekOfCode": "API_KEY_VAR = \"API_KEY\"\nAPI_BASE_URL_VAR = \"API_BASE_URL\"\nMODEL_VAR = \"MODEL\"\nMESSAGES = {\n    \"WELCOME_TITLE\": \"Bem-vindo ao {command_name} v{version}!\",\n    \"WELCOME_SUBTITLE\": \"Seu assistente de IA para desenvolvimento Git produtivo\",\n    \"API_KEY_NOT_SET\": \"❌ API_KEY environment variable not set.\",\n    \"API_KEY_HELP\": \"   Please define it in your .env file or your environment.\",\n    \"NO_CHANGES\": \"✅ No staged changes found. Nothing to commit.\",\n    \"OPERATION_CANCELLED\": \"🚫 Operation canceled by user. Exiting.\"",
+        "peekOfCode": "API_KEY_VAR = \"API_KEY\"\nAPI_BASE_URL_VAR = \"API_BASE_URL\"\nMODEL_VAR = \"MODEL\"\nDEFAULT_TEMPERATURE = 0.3\nDEFAULT_BRANCH_TEMPERATURE = 0.5\nMESSAGES = {\n    \"WELCOME_TITLE\": \"Bem-vindo ao {command_name} v{version}!\",\n    \"WELCOME_SUBTITLE\": \"Seu assistente de IA para desenvolvimento Git produtivo\",\n    \"API_KEY_NOT_SET\": \"❌ API_KEY não configurada.\",\n    \"API_KEY_HELP\": \"   Por favor, defina-a no arquivo .env ou no seu ambiente.\",",
         "detail": "constants",
         "documentation": {}
     },
@@ -261,7 +234,7 @@
         "kind": 5,
         "importPath": "constants",
         "description": "constants",
-        "peekOfCode": "API_BASE_URL_VAR = \"API_BASE_URL\"\nMODEL_VAR = \"MODEL\"\nMESSAGES = {\n    \"WELCOME_TITLE\": \"Bem-vindo ao {command_name} v{version}!\",\n    \"WELCOME_SUBTITLE\": \"Seu assistente de IA para desenvolvimento Git produtivo\",\n    \"API_KEY_NOT_SET\": \"❌ API_KEY environment variable not set.\",\n    \"API_KEY_HELP\": \"   Please define it in your .env file or your environment.\",\n    \"NO_CHANGES\": \"✅ No staged changes found. Nothing to commit.\",\n    \"OPERATION_CANCELLED\": \"🚫 Operation canceled by user. Exiting.\"\n}",
+        "peekOfCode": "API_BASE_URL_VAR = \"API_BASE_URL\"\nMODEL_VAR = \"MODEL\"\nDEFAULT_TEMPERATURE = 0.3\nDEFAULT_BRANCH_TEMPERATURE = 0.5\nMESSAGES = {\n    \"WELCOME_TITLE\": \"Bem-vindo ao {command_name} v{version}!\",\n    \"WELCOME_SUBTITLE\": \"Seu assistente de IA para desenvolvimento Git produtivo\",\n    \"API_KEY_NOT_SET\": \"❌ API_KEY não configurada.\",\n    \"API_KEY_HELP\": \"   Por favor, defina-a no arquivo .env ou no seu ambiente.\",\n    \"NO_CHANGES\": \"✅ Não há alterações para commit.\",",
         "detail": "constants",
         "documentation": {}
     },
@@ -270,7 +243,25 @@
         "kind": 5,
         "importPath": "constants",
         "description": "constants",
-        "peekOfCode": "MODEL_VAR = \"MODEL\"\nMESSAGES = {\n    \"WELCOME_TITLE\": \"Bem-vindo ao {command_name} v{version}!\",\n    \"WELCOME_SUBTITLE\": \"Seu assistente de IA para desenvolvimento Git produtivo\",\n    \"API_KEY_NOT_SET\": \"❌ API_KEY environment variable not set.\",\n    \"API_KEY_HELP\": \"   Please define it in your .env file or your environment.\",\n    \"NO_CHANGES\": \"✅ No staged changes found. Nothing to commit.\",\n    \"OPERATION_CANCELLED\": \"🚫 Operation canceled by user. Exiting.\"\n}\nHELP_SECTIONS = {",
+        "peekOfCode": "MODEL_VAR = \"MODEL\"\nDEFAULT_TEMPERATURE = 0.3\nDEFAULT_BRANCH_TEMPERATURE = 0.5\nMESSAGES = {\n    \"WELCOME_TITLE\": \"Bem-vindo ao {command_name} v{version}!\",\n    \"WELCOME_SUBTITLE\": \"Seu assistente de IA para desenvolvimento Git produtivo\",\n    \"API_KEY_NOT_SET\": \"❌ API_KEY não configurada.\",\n    \"API_KEY_HELP\": \"   Por favor, defina-a no arquivo .env ou no seu ambiente.\",\n    \"NO_CHANGES\": \"✅ Não há alterações para commit.\",\n    \"OPERATION_CANCELLED\": \"🚫 Operação cancelada pelo usuário. Saindo.\"",
+        "detail": "constants",
+        "documentation": {}
+    },
+    {
+        "label": "DEFAULT_TEMPERATURE",
+        "kind": 5,
+        "importPath": "constants",
+        "description": "constants",
+        "peekOfCode": "DEFAULT_TEMPERATURE = 0.3\nDEFAULT_BRANCH_TEMPERATURE = 0.5\nMESSAGES = {\n    \"WELCOME_TITLE\": \"Bem-vindo ao {command_name} v{version}!\",\n    \"WELCOME_SUBTITLE\": \"Seu assistente de IA para desenvolvimento Git produtivo\",\n    \"API_KEY_NOT_SET\": \"❌ API_KEY não configurada.\",\n    \"API_KEY_HELP\": \"   Por favor, defina-a no arquivo .env ou no seu ambiente.\",\n    \"NO_CHANGES\": \"✅ Não há alterações para commit.\",\n    \"OPERATION_CANCELLED\": \"🚫 Operação cancelada pelo usuário. Saindo.\"\n}",
+        "detail": "constants",
+        "documentation": {}
+    },
+    {
+        "label": "DEFAULT_BRANCH_TEMPERATURE",
+        "kind": 5,
+        "importPath": "constants",
+        "description": "constants",
+        "peekOfCode": "DEFAULT_BRANCH_TEMPERATURE = 0.5\nMESSAGES = {\n    \"WELCOME_TITLE\": \"Bem-vindo ao {command_name} v{version}!\",\n    \"WELCOME_SUBTITLE\": \"Seu assistente de IA para desenvolvimento Git produtivo\",\n    \"API_KEY_NOT_SET\": \"❌ API_KEY não configurada.\",\n    \"API_KEY_HELP\": \"   Por favor, defina-a no arquivo .env ou no seu ambiente.\",\n    \"NO_CHANGES\": \"✅ Não há alterações para commit.\",\n    \"OPERATION_CANCELLED\": \"🚫 Operação cancelada pelo usuário. Saindo.\"\n}\nHELP_SECTIONS = {",
         "detail": "constants",
         "documentation": {}
     },
@@ -279,7 +270,7 @@
         "kind": 5,
         "importPath": "constants",
         "description": "constants",
-        "peekOfCode": "MESSAGES = {\n    \"WELCOME_TITLE\": \"Bem-vindo ao {command_name} v{version}!\",\n    \"WELCOME_SUBTITLE\": \"Seu assistente de IA para desenvolvimento Git produtivo\",\n    \"API_KEY_NOT_SET\": \"❌ API_KEY environment variable not set.\",\n    \"API_KEY_HELP\": \"   Please define it in your .env file or your environment.\",\n    \"NO_CHANGES\": \"✅ No staged changes found. Nothing to commit.\",\n    \"OPERATION_CANCELLED\": \"🚫 Operation canceled by user. Exiting.\"\n}\nHELP_SECTIONS = {\n    \"USAGE\": \"📋 USO:\",",
+        "peekOfCode": "MESSAGES = {\n    \"WELCOME_TITLE\": \"Bem-vindo ao {command_name} v{version}!\",\n    \"WELCOME_SUBTITLE\": \"Seu assistente de IA para desenvolvimento Git produtivo\",\n    \"API_KEY_NOT_SET\": \"❌ API_KEY não configurada.\",\n    \"API_KEY_HELP\": \"   Por favor, defina-a no arquivo .env ou no seu ambiente.\",\n    \"NO_CHANGES\": \"✅ Não há alterações para commit.\",\n    \"OPERATION_CANCELLED\": \"🚫 Operação cancelada pelo usuário. Saindo.\"\n}\nHELP_SECTIONS = {\n    \"USAGE\": \"📋 USO:\",",
         "detail": "constants",
         "documentation": {}
     },
@@ -333,7 +324,7 @@
         "kind": 2,
         "importPath": "main",
         "description": "main",
-        "peekOfCode": "def show_help():\n    print(f\"\"\"🤖 {COMMAND_NAME.title()} v{VERSION} - Assistente de Git com IA\n{HELP_SECTIONS[\"USAGE\"]}\n  {COMMAND_NAME} [OPÇÕES]\n{HELP_SECTIONS[\"OPTIONS\"]}\n  -b, --branch         {OPTION_DESCRIPTIONS[\"BRANCH\"]}\n  --pr                 {OPTION_DESCRIPTIONS[\"PR\"]}\n  -v, --version        {OPTION_DESCRIPTIONS[\"VERSION\"]}\n  --help               {OPTION_DESCRIPTIONS[\"HELP\"]}\n{HELP_SECTIONS[\"EXAMPLES\"]}",
+        "peekOfCode": "def show_help():\n    print(f\"\"\"🤖 {COMMAND_NAME.title()} v{VERSION} - Assistente de Git com IA\n{HELP_SECTIONS[\"USAGE\"]}\n  {COMMAND_NAME} [OPÇÕES]\n{HELP_SECTIONS[\"OPTIONS\"]}\n  -b, --branch         Cria uma nova branch\n  -c, --commit         Gera e executa commit\n  --pr                 {OPTION_DESCRIPTIONS[\"PR\"]}\n  -v, --version        {OPTION_DESCRIPTIONS[\"VERSION\"]}\n  --help               {OPTION_DESCRIPTIONS[\"HELP\"]}",
         "detail": "main",
         "documentation": {}
     },
@@ -414,7 +405,7 @@
         "kind": 2,
         "importPath": "main",
         "description": "main",
-        "peekOfCode": "def main():\n    parser = argparse.ArgumentParser(description=\"Assistente de fluxo de trabalho Git com IA\", add_help=False)\n    parser.add_argument(\"--branch\", \"-b\", action=\"store_true\", help=OPTION_DESCRIPTIONS[\"BRANCH\"])\n    parser.add_argument(\"--pr\", action=\"store_true\", help=OPTION_DESCRIPTIONS[\"PR\"])\n    parser.add_argument(\"--version\", \"-v\", \"--v\", \"-version\", action=\"store_true\", help=OPTION_DESCRIPTIONS[\"VERSION\"])\n    parser.add_argument(\"--help\", action=\"store_true\", help=OPTION_DESCRIPTIONS[\"HELP\"])\n    args = parser.parse_args()\n    # Handle help and version first\n    if args.help:\n        show_help()",
+        "peekOfCode": "def main():\n    parser = argparse.ArgumentParser(description=\"Assistente de fluxo de trabalho Git com IA\", add_help=False)\n    parser.add_argument(\"--branch\", \"-b\", action=\"store_true\", help=\"Cria uma nova branch\")\n    parser.add_argument(\"--commit\", \"-c\", action=\"store_true\", help=\"Gera e executa commit\")\n    parser.add_argument(\"--pr\", action=\"store_true\", help=OPTION_DESCRIPTIONS[\"PR\"])\n    parser.add_argument(\"--version\", \"-v\", \"--v\", \"-version\", action=\"store_true\", help=OPTION_DESCRIPTIONS[\"VERSION\"])\n    parser.add_argument(\"--help\", action=\"store_true\", help=OPTION_DESCRIPTIONS[\"HELP\"])\n    args = parser.parse_args()\n    # Handle help and version first\n    if args.help:",
         "detail": "main",
         "documentation": {}
     },
@@ -423,7 +414,7 @@
         "kind": 5,
         "importPath": "main",
         "description": "main",
-        "peekOfCode": "API_KEY = os.getenv(API_KEY_VAR)\nAPI_BASE_URL = os.getenv(API_BASE_URL_VAR)\nMODEL = os.getenv(MODEL_VAR, DEFAULT_MODEL)\n# Initialize client with dynamic configuration\nclient_kwargs = {\"api_key\": API_KEY}\nif API_BASE_URL:\n    client_kwargs[\"base_url\"] = API_BASE_URL\nclient = OpenAI(**client_kwargs)\ndef show_version():\n    print(f\"🤖 {COMMAND_NAME.title()} v{VERSION}\")",
+        "peekOfCode": "API_KEY = os.getenv(API_KEY_VAR)\nAPI_BASE_URL = os.getenv(API_BASE_URL_VAR)\nMODEL = os.getenv(MODEL_VAR)\n# Initialize client with dynamic configuration\nclient_kwargs = {\"api_key\": API_KEY}\nif API_BASE_URL:\n    client_kwargs[\"base_url\"] = API_BASE_URL\nclient = OpenAI(**client_kwargs)\ndef show_version():\n    print(f\"🤖 {COMMAND_NAME.title()} v{VERSION}\")",
         "detail": "main",
         "documentation": {}
     },
@@ -432,7 +423,7 @@
         "kind": 5,
         "importPath": "main",
         "description": "main",
-        "peekOfCode": "API_BASE_URL = os.getenv(API_BASE_URL_VAR)\nMODEL = os.getenv(MODEL_VAR, DEFAULT_MODEL)\n# Initialize client with dynamic configuration\nclient_kwargs = {\"api_key\": API_KEY}\nif API_BASE_URL:\n    client_kwargs[\"base_url\"] = API_BASE_URL\nclient = OpenAI(**client_kwargs)\ndef show_version():\n    print(f\"🤖 {COMMAND_NAME.title()} v{VERSION}\")\n    print(\"Assistente de fluxo de trabalho Git com IA\")",
+        "peekOfCode": "API_BASE_URL = os.getenv(API_BASE_URL_VAR)\nMODEL = os.getenv(MODEL_VAR)\n# Initialize client with dynamic configuration\nclient_kwargs = {\"api_key\": API_KEY}\nif API_BASE_URL:\n    client_kwargs[\"base_url\"] = API_BASE_URL\nclient = OpenAI(**client_kwargs)\ndef show_version():\n    print(f\"🤖 {COMMAND_NAME.title()} v{VERSION}\")\n    print(\"Assistente de fluxo de trabalho Git com IA\")",
         "detail": "main",
         "documentation": {}
     },
@@ -441,7 +432,7 @@
         "kind": 5,
         "importPath": "main",
         "description": "main",
-        "peekOfCode": "MODEL = os.getenv(MODEL_VAR, DEFAULT_MODEL)\n# Initialize client with dynamic configuration\nclient_kwargs = {\"api_key\": API_KEY}\nif API_BASE_URL:\n    client_kwargs[\"base_url\"] = API_BASE_URL\nclient = OpenAI(**client_kwargs)\ndef show_version():\n    print(f\"🤖 {COMMAND_NAME.title()} v{VERSION}\")\n    print(\"Assistente de fluxo de trabalho Git com IA\")\n    print(REPOSITORY_URL)",
+        "peekOfCode": "MODEL = os.getenv(MODEL_VAR)\n# Initialize client with dynamic configuration\nclient_kwargs = {\"api_key\": API_KEY}\nif API_BASE_URL:\n    client_kwargs[\"base_url\"] = API_BASE_URL\nclient = OpenAI(**client_kwargs)\ndef show_version():\n    print(f\"🤖 {COMMAND_NAME.title()} v{VERSION}\")\n    print(\"Assistente de fluxo de trabalho Git com IA\")\n    print(REPOSITORY_URL)",
         "detail": "main",
         "documentation": {}
     },

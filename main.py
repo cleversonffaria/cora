@@ -13,7 +13,7 @@ load_dotenv()
 # Get API configuration from environment
 API_KEY = os.getenv(API_KEY_VAR)
 API_BASE_URL = os.getenv(API_BASE_URL_VAR)
-MODEL = os.getenv(MODEL_VAR, DEFAULT_MODEL)
+MODEL = os.getenv(MODEL_VAR)
 
 # Initialize client with dynamic configuration
 client_kwargs = {"api_key": API_KEY}
@@ -41,8 +41,8 @@ def show_welcome():
 
 💡 Para começar:
    {COMMAND_NAME} --help          # Ver todas as opções disponíveis
-   {COMMAND_NAME} -b              # {EXAMPLE_DESCRIPTIONS["BRANCH_COMMIT"]}
-   {COMMAND_NAME} -b --pr         # {EXAMPLE_DESCRIPTIONS["FULL_WORKFLOW"]}
+   {COMMAND_NAME} -c              # Gerar e fazer commit
+   {COMMAND_NAME} -b -c --pr      # Fluxo completo: branch + commit + PR
 
 🔑 Não esqueça de configurar sua chave da API no arquivo .env!
 """)
@@ -54,15 +54,18 @@ def show_help():
   {COMMAND_NAME} [OPÇÕES]
 
 {HELP_SECTIONS["OPTIONS"]}
-  -b, --branch         {OPTION_DESCRIPTIONS["BRANCH"]}
+  -b, --branch         Cria uma nova branch
+  -c, --commit         Gera e executa commit
   --pr                 {OPTION_DESCRIPTIONS["PR"]}
   -v, --version        {OPTION_DESCRIPTIONS["VERSION"]}
   --help               {OPTION_DESCRIPTIONS["HELP"]}
 
 {HELP_SECTIONS["EXAMPLES"]}
-  {COMMAND_NAME}                    # {EXAMPLE_DESCRIPTIONS["COMMIT_ONLY"]}
-  {COMMAND_NAME} -b                 # {EXAMPLE_DESCRIPTIONS["BRANCH_COMMIT"]}
-  {COMMAND_NAME} -b --pr           # {EXAMPLE_DESCRIPTIONS["FULL_WORKFLOW"]}
+  {COMMAND_NAME} -c                 # Gera apenas commit
+  {COMMAND_NAME} -b                 # Cria apenas branch
+  {COMMAND_NAME} -b -c              # Cria branch + commit
+  {COMMAND_NAME} -c --pr           # Commit + abre PR
+  {COMMAND_NAME} -b -c --pr        # Fluxo completo: branch + commit + PR
 
 {HELP_SECTIONS["SETUP"]}
   Configure sua chave da API no arquivo .env:
@@ -214,7 +217,8 @@ def get_pr_url(branch_name):
 
 def main():
     parser = argparse.ArgumentParser(description="Assistente de fluxo de trabalho Git com IA", add_help=False)
-    parser.add_argument("--branch", "-b", action="store_true", help=OPTION_DESCRIPTIONS["BRANCH"])
+    parser.add_argument("--branch", "-b", action="store_true", help="Cria uma nova branch")
+    parser.add_argument("--commit", "-c", action="store_true", help="Gera e executa commit")
     parser.add_argument("--pr", action="store_true", help=OPTION_DESCRIPTIONS["PR"])
     parser.add_argument("--version", "-v", "--v", "-version", action="store_true", help=OPTION_DESCRIPTIONS["VERSION"])
     parser.add_argument("--help", action="store_true", help=OPTION_DESCRIPTIONS["HELP"])
@@ -230,31 +234,35 @@ def main():
         return
 
     # Check if no arguments were provided (only default values)
-    if not any([args.branch, args.pr]):
+    if not any([args.branch, args.commit, args.pr]):
         show_welcome()
         return
 
-    if not API_KEY:
-        print(MESSAGES["API_KEY_NOT_SET"])
-        print(MESSAGES["API_KEY_HELP"])
-        exit(1)
+    # Check if we need to access git/API for any operations
+    if args.branch or args.commit:
+        if not API_KEY:
+            print(MESSAGES["API_KEY_NOT_SET"])
+            print(MESSAGES["API_KEY_HELP"])
+            exit(1)
 
-    diff = get_git_diff()
+        diff = get_git_diff()
 
-    if not diff:
-        print(MESSAGES["NO_CHANGES"])
-        exit(0)
+        if not diff:
+            print(MESSAGES["NO_CHANGES"])
+            exit(0)
 
+    # Store original branch for potential rollback
+    original_branch_name = run_git_command(["git", "rev-parse", "--abbrev-ref", "HEAD"])
     branch_name = None
     new_branch_created = False
-    original_branch_name = run_git_command(["git", "rev-parse", "--abbrev-ref", "HEAD"])
 
+    # 1. Handle branch creation
     if args.branch:
+        print("🌿 Creating new branch...")
         branch_name = user_interaction_loop("Suggested branch name", generate_branch_name, diff)
         if branch_name:
             if branch_name == original_branch_name:
                 print(f"⚠️ The suggested branch ('{branch_name}') is the same as the current branch. No new branch will be created.")
-                new_branch_created = False
             else:
                 print(f"🌿 Creating and checking out branch '{branch_name}'...")
                 run_git_command(["git", "checkout", "-b", branch_name], check=False)
@@ -267,65 +275,60 @@ def main():
                     print(f"   Continuing on branch '{original_branch_name}'.")
                     branch_name = None
         else:
-            print("🚫 Branch creation canceled. Continuing on the current branch.")
+            print("🚫 Branch creation canceled.")
+            return
 
-    commit_message = user_interaction_loop("Suggested commit message", generate_commit_message, diff)
+    # 2. Handle commit creation
+    if args.commit:
+        print("📝 Creating commit...")
+        commit_message = user_interaction_loop("Suggested commit message", generate_commit_message, diff)
+        
+        if commit_message:
+            current_branch = run_git_command(["git", "rev-parse", "--abbrev-ref", "HEAD"])
+            print(f"\n📝 Commit Review:")
+            print(f"   Message: \"{commit_message}\"")
+            print(f"   Branch: {current_branch}")
 
-    if commit_message:
-        print(f"\n📝 Commit Review:")
-        print(f"   Message: \"{commit_message}\"")
-
-        branch_to_commit_on = run_git_command(["git", "rev-parse", "--abbrev-ref", "HEAD"])
-        if new_branch_created and branch_name:
-            print(f"   Branch: {branch_name} (new)")
-        else:
-            print(f"   Branch: {branch_to_commit_on} (current)")
-
-        confirmation = input("\n✅ Proceed with commit and push? (Y/n): ").strip().lower()
-
-        if confirmation in ('y', ''):
-            print("💾 Committing...")
+            # Always create the commit first
+            print("\n💾 Creating commit...")
             run_git_command(["git", "commit", "-m", commit_message])
+            print("✅ Commit created successfully!")
 
-            branch_to_push = run_git_command(["git", "rev-parse", "--abbrev-ref", "HEAD"])
-            print(f"🚀 Pushing to branch '{branch_to_push}'...")
-
-            if new_branch_created and branch_to_push == branch_name:
-                run_git_command(["git", "push", "--set-upstream", "origin", branch_to_push])
-            else:
-                run_git_command(["git", "push", "origin", branch_to_push])
+            # Ask about push
+            push_confirmation = input(f"\n🚀 Push to remote branch '{current_branch}'? (Y/n): ").strip().lower()
             
-            print("✨ Success!")
-
-            if args.pr:
-                pr_url = get_pr_url(branch_to_push)
-                if pr_url:
-                    open_pr_response = input(f"\n🔗 Would you like to open a Pull Request in your browser? (Y/n): ").strip().lower()
-                    if open_pr_response in ('y', ''):
-                        print(f"🚀 Opening PR link in your browser...")
-                        if not open_in_browser(pr_url):
-                            print(f"⚠️ Could not open the browser automatically.")
-                            print(f"   Please, copy and paste this URL:\n   {pr_url}")
-        else:
-            print("🚫 Operation canceled by the user.")
-            if new_branch_created and branch_name != original_branch_name:
-                go_back = input(f"❓ You created the branch '{branch_name}'. Would you like to return to the original branch '{original_branch_name}'? (y/N): ").strip().lower()
-                if go_back == 'y':
-                    print(f"↪️ Returning to branch '{original_branch_name}'...")
-                    run_git_command(["git", "checkout", original_branch_name])
-                    print(f"✅ Returned to '{original_branch_name}'.")
+            if push_confirmation in ('y', ''):
+                print(f"🚀 Pushing to branch '{current_branch}'...")
+                if new_branch_created:
+                    run_git_command(["git", "push", "--set-upstream", "origin", current_branch])
                 else:
-                    print(f"ℹ️ Staying on branch '{branch_name}'.")
-    else:
-        print("🚫 Commit canceled.")
-        if new_branch_created and branch_name != original_branch_name:
-            go_back = input(f"❓ You created the branch '{branch_name}' but canceled the commit. Would you like to return to the original branch '{original_branch_name}'? (y/N): ").strip().lower()
-            if go_back == 'y':
-                print(f"↪️ Returning to branch '{original_branch_name}'...")
-                run_git_command(["git", "checkout", original_branch_name])
-                print(f"✅ Returned to '{original_branch_name}'.")
+                    run_git_command(["git", "push", "origin", current_branch])
+                
+                print("✨ Push successful!")
             else:
-                print(f"ℹ️ Staying on branch '{branch_name}'.")
+                print("ℹ️ Commit created locally. Push skipped.")
+                print(f"   To push later, run: git push origin {current_branch}")
+        else:
+            print("🚫 Commit canceled.")
+            return
+
+    # 3. Handle PR creation
+    if args.pr:
+        current_branch = run_git_command(["git", "rev-parse", "--abbrev-ref", "HEAD"])
+        print(f"🔗 Opening Pull Request for branch '{current_branch}'...")
+        
+        pr_url = get_pr_url(current_branch)
+        if pr_url:
+            open_pr_response = input(f"\n🔗 Would you like to open a Pull Request in your browser? (Y/n): ").strip().lower()
+            if open_pr_response in ('y', ''):
+                print(f"🚀 Opening PR link in your browser...")
+                if not open_in_browser(pr_url):
+                    print(f"⚠️ Could not open the browser automatically.")
+                    print(f"   Please, copy and paste this URL:\n   {pr_url}")
+            else:
+                print("🚫 PR opening canceled.")
+        else:
+            print("⚠️ Could not generate PR URL. Make sure you have a valid GitHub remote.")
 
 if __name__ == "__main__":
     try:
