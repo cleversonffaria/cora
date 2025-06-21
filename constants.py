@@ -30,7 +30,7 @@ HELP_SECTIONS = {
 
 OPTION_DESCRIPTIONS = {
     "BRANCH": "Gera um nome de branch antes de fazer commit",
-    "PR": "Abre pull request no navegador após push",
+    "PR": "Cria pull request automaticamente ou abre no navegador",
     "VERSION": "Mostra informações da versão",
     "HELP": "Mostra esta mensagem de ajuda"
 }

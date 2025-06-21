@@ -43,7 +43,7 @@ def show_welcome():
 💡 Para começar:
    {COMMAND_NAME} --help          # Ver todas as opções disponíveis
    {COMMAND_NAME} -c              # Gerar e fazer commit
-   {COMMAND_NAME} -b -c --pr      # Fluxo completo: branch + commit + PR
+       {COMMAND_NAME} -b -c -pr       # Fluxo completo: branch + commit + PR
 
 🔑 Não esqueça de configurar sua chave da API no arquivo .env!
 """)
@@ -57,16 +57,16 @@ def show_help():
 {HELP_SECTIONS["OPTIONS"]}
   -b, --branch         Cria uma nova branch
   -c, --commit         Gera e executa commit
-  --pr                 {OPTION_DESCRIPTIONS["PR"]}
+  -pr, --pull-request  {OPTION_DESCRIPTIONS["PR"]}
   -v, --version        {OPTION_DESCRIPTIONS["VERSION"]}
-  --help               {OPTION_DESCRIPTIONS["HELP"]}
+      -h, --help           {OPTION_DESCRIPTIONS["HELP"]}
 
 {HELP_SECTIONS["EXAMPLES"]}
   {COMMAND_NAME} -c                 # Gera apenas commit
   {COMMAND_NAME} -b                 # Cria apenas branch
   {COMMAND_NAME} -b -c              # Cria branch + commit
-  {COMMAND_NAME} -c --pr           # Commit + abre PR
-  {COMMAND_NAME} -b -c --pr        # Fluxo completo: branch + commit + PR
+      {COMMAND_NAME} -c -pr            # Commit + abre PR
+    {COMMAND_NAME} -b -c -pr         # Fluxo completo: branch + commit + PR
 
 {HELP_SECTIONS["SETUP"]}
   Configure sua chave da API no arquivo .env:
@@ -347,9 +347,9 @@ def main():
     parser = argparse.ArgumentParser(description="Assistente de fluxo de trabalho Git com IA", add_help=False)
     parser.add_argument("--branch", "-b", action="store_true", help="Cria uma nova branch")
     parser.add_argument("--commit", "-c", action="store_true", help="Gera e executa commit")
-    parser.add_argument("--pr", action="store_true", help=OPTION_DESCRIPTIONS["PR"])
+    parser.add_argument("--pull-request", "-pr", action="store_true", help=OPTION_DESCRIPTIONS["PR"])
     parser.add_argument("--version", "-v", "--v", "-version", action="store_true", help=OPTION_DESCRIPTIONS["VERSION"])
-    parser.add_argument("--help", action="store_true", help=OPTION_DESCRIPTIONS["HELP"])
+    parser.add_argument("--help", "-h", action="store_true", help=OPTION_DESCRIPTIONS["HELP"])
     args = parser.parse_args()
 
     # Handle help and version first
@@ -361,7 +361,7 @@ def main():
         show_version()
         return
 
-    if not any([args.branch, args.commit, args.pr]):
+    if not any([args.branch, args.commit, args.pull_request]):
         show_welcome()
         return
 
@@ -439,7 +439,7 @@ def main():
             return
 
     # 3. Handle PR creation
-    if args.pr:
+    if args.pull_request:
         print("📋 Iniciando processo de criação de Pull Request...")
         
         # Get current branch

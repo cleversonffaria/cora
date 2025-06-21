@@ -1,54 +1,20 @@
 [
     {
-        "label": "os",
-        "kind": 6,
-        "isExtraImport": true,
-        "importPath": "os",
-        "description": "os",
-        "detail": "os",
-        "documentation": {}
-    },
-    {
-        "label": "load_dotenv",
-        "importPath": "dotenv",
-        "description": "dotenv",
-        "isExtraImport": true,
-        "detail": "dotenv",
-        "documentation": {}
-    },
-    {
-        "label": "load_dotenv",
-        "importPath": "dotenv",
-        "description": "dotenv",
-        "isExtraImport": true,
-        "detail": "dotenv",
-        "documentation": {}
-    },
-    {
-        "label": "requests",
-        "kind": 6,
-        "isExtraImport": true,
-        "importPath": "requests",
-        "description": "requests",
-        "detail": "requests",
-        "documentation": {}
-    },
-    {
-        "label": "json",
-        "kind": 6,
-        "isExtraImport": true,
-        "importPath": "json",
-        "description": "json",
-        "detail": "json",
-        "documentation": {}
-    },
-    {
         "label": "subprocess",
         "kind": 6,
         "isExtraImport": true,
         "importPath": "subprocess",
         "description": "subprocess",
         "detail": "subprocess",
+        "documentation": {}
+    },
+    {
+        "label": "os",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "os",
+        "description": "os",
+        "detail": "os",
         "documentation": {}
     },
     {
@@ -87,119 +53,19 @@
         "documentation": {}
     },
     {
+        "label": "load_dotenv",
+        "importPath": "dotenv",
+        "description": "dotenv",
+        "isExtraImport": true,
+        "detail": "dotenv",
+        "documentation": {}
+    },
+    {
         "label": "*",
         "importPath": "constants",
         "description": "constants",
         "isExtraImport": true,
         "detail": "constants",
-        "documentation": {}
-    },
-    {
-        "label": "make_api_request",
-        "kind": 2,
-        "importPath": "bot_pr",
-        "description": "bot_pr",
-        "peekOfCode": "def make_api_request(prompt_content):\n    headers = {\n        \"Authorization\": f\"Bearer {OPENROUTER_API_KEY}\",\n        \"Content-Type\": \"application/json\",\n        \"HTTP-Referer\": \"localhost\",\n        \"X-Title\": \"bot_pr_script\"\n    }\n    payload = {\n        \"model\": MODEL,\n        \"messages\": [",
-        "detail": "bot_pr",
-        "documentation": {}
-    },
-    {
-        "label": "process_response",
-        "kind": 2,
-        "importPath": "bot_pr",
-        "description": "bot_pr",
-        "peekOfCode": "def process_response(response):\n    if not response:\n        return None\n    if not response.content:\n        print(\"❌ Resposta vazia da API!\")\n        print(f\"Status code: {response.status_code}\")\n        return None\n    try:\n        data = response.json()\n        if \"choices\" not in data or not data[\"choices\"]:",
-        "detail": "bot_pr",
-        "documentation": {}
-    },
-    {
-        "label": "save_result",
-        "kind": 2,
-        "importPath": "bot_pr",
-        "description": "bot_pr",
-        "peekOfCode": "def save_result(summary):\n    try:\n        with open(description_path, \"w\", encoding=\"utf-8\") as f:\n            f.write(summary)\n        print(\"✅ Resumo gerado e salvo em pr_description.txt\")\n        return True\n    except Exception as e:\n        print(f\"❌ Erro ao salvar arquivo: {e}\")\n        return False\ndef show_preview(summary):",
-        "detail": "bot_pr",
-        "documentation": {}
-    },
-    {
-        "label": "show_preview",
-        "kind": 2,
-        "importPath": "bot_pr",
-        "description": "bot_pr",
-        "peekOfCode": "def show_preview(summary):\n    print(\"\\n\" + \"=\"*60)\n    print(\"📋 PREVIEW DO RELATÓRIO GERADO\")\n    print(\"=\"*60)\n    print(summary)\n    print(\"=\"*60 + \"\\n\")\ndef main():\n    print(\"🤖 Iniciando geração de relatório de PR...\")\n    # Verificar se o arquivo de diff existe\n    if not os.path.exists(report_path):",
-        "detail": "bot_pr",
-        "documentation": {}
-    },
-    {
-        "label": "main",
-        "kind": 2,
-        "importPath": "bot_pr",
-        "description": "bot_pr",
-        "peekOfCode": "def main():\n    print(\"🤖 Iniciando geração de relatório de PR...\")\n    # Verificar se o arquivo de diff existe\n    if not os.path.exists(report_path):\n        print(f\"❌ Arquivo {report_path} não encontrado!\")\n        return\n    # Fazer requisição para a API do OpenRouter\n    response = make_api_request(prompt)\n    # Processar resposta da API do OpenRouter\n    summary = process_response(response)",
-        "detail": "bot_pr",
-        "documentation": {}
-    },
-    {
-        "label": "BOT_PATH",
-        "kind": 5,
-        "importPath": "bot_pr",
-        "description": "bot_pr",
-        "peekOfCode": "BOT_PATH = os.getenv(\"BOT_PATH\")\n# Caminho absoluto do diretório onde está o script\nSCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))\n# Carrega variáveis do .env no mesmo diretório do script\nload_dotenv(dotenv_path=os.path.join(SCRIPT_DIR, \".env\"))\nOPENROUTER_API_KEY = os.getenv(\"OPENROUTER_API_KEY\")\nMODEL = os.getenv(\"MODEL\")\n# Caminho absoluto para os arquivos\nreport_path = os.path.join(SCRIPT_DIR, \"pr_report.txt\")\ndescription_path = os.path.join(SCRIPT_DIR, \"pr_description.txt\")",
-        "detail": "bot_pr",
-        "documentation": {}
-    },
-    {
-        "label": "SCRIPT_DIR",
-        "kind": 5,
-        "importPath": "bot_pr",
-        "description": "bot_pr",
-        "peekOfCode": "SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))\n# Carrega variáveis do .env no mesmo diretório do script\nload_dotenv(dotenv_path=os.path.join(SCRIPT_DIR, \".env\"))\nOPENROUTER_API_KEY = os.getenv(\"OPENROUTER_API_KEY\")\nMODEL = os.getenv(\"MODEL\")\n# Caminho absoluto para os arquivos\nreport_path = os.path.join(SCRIPT_DIR, \"pr_report.txt\")\ndescription_path = os.path.join(SCRIPT_DIR, \"pr_description.txt\")\n# Lê o diff salvo em pr_report.txt\nwith open(report_path, \"r\", encoding=\"utf-8\") as f:",
-        "detail": "bot_pr",
-        "documentation": {}
-    },
-    {
-        "label": "OPENROUTER_API_KEY",
-        "kind": 5,
-        "importPath": "bot_pr",
-        "description": "bot_pr",
-        "peekOfCode": "OPENROUTER_API_KEY = os.getenv(\"OPENROUTER_API_KEY\")\nMODEL = os.getenv(\"MODEL\")\n# Caminho absoluto para os arquivos\nreport_path = os.path.join(SCRIPT_DIR, \"pr_report.txt\")\ndescription_path = os.path.join(SCRIPT_DIR, \"pr_description.txt\")\n# Lê o diff salvo em pr_report.txt\nwith open(report_path, \"r\", encoding=\"utf-8\") as f:\n    diff = f.read()\nprompt = \"\"\"\nAnalise as alterações de código a seguir e gere um relatório detalhado seguindo EXATAMENTE este formato:",
-        "detail": "bot_pr",
-        "documentation": {}
-    },
-    {
-        "label": "MODEL",
-        "kind": 5,
-        "importPath": "bot_pr",
-        "description": "bot_pr",
-        "peekOfCode": "MODEL = os.getenv(\"MODEL\")\n# Caminho absoluto para os arquivos\nreport_path = os.path.join(SCRIPT_DIR, \"pr_report.txt\")\ndescription_path = os.path.join(SCRIPT_DIR, \"pr_description.txt\")\n# Lê o diff salvo em pr_report.txt\nwith open(report_path, \"r\", encoding=\"utf-8\") as f:\n    diff = f.read()\nprompt = \"\"\"\nAnalise as alterações de código a seguir e gere um relatório detalhado seguindo EXATAMENTE este formato:\n**Feature:** [Título resumido da funcionalidade ou alteração principal]",
-        "detail": "bot_pr",
-        "documentation": {}
-    },
-    {
-        "label": "report_path",
-        "kind": 5,
-        "importPath": "bot_pr",
-        "description": "bot_pr",
-        "peekOfCode": "report_path = os.path.join(SCRIPT_DIR, \"pr_report.txt\")\ndescription_path = os.path.join(SCRIPT_DIR, \"pr_description.txt\")\n# Lê o diff salvo em pr_report.txt\nwith open(report_path, \"r\", encoding=\"utf-8\") as f:\n    diff = f.read()\nprompt = \"\"\"\nAnalise as alterações de código a seguir e gere um relatório detalhado seguindo EXATAMENTE este formato:\n**Feature:** [Título resumido da funcionalidade ou alteração principal]\n**Descrição:**\n[Breve explicação do que foi implementado ou alterado]",
-        "detail": "bot_pr",
-        "documentation": {}
-    },
-    {
-        "label": "description_path",
-        "kind": 5,
-        "importPath": "bot_pr",
-        "description": "bot_pr",
-        "peekOfCode": "description_path = os.path.join(SCRIPT_DIR, \"pr_description.txt\")\n# Lê o diff salvo em pr_report.txt\nwith open(report_path, \"r\", encoding=\"utf-8\") as f:\n    diff = f.read()\nprompt = \"\"\"\nAnalise as alterações de código a seguir e gere um relatório detalhado seguindo EXATAMENTE este formato:\n**Feature:** [Título resumido da funcionalidade ou alteração principal]\n**Descrição:**\n[Breve explicação do que foi implementado ou alterado]\n**Resumo:**",
-        "detail": "bot_pr",
-        "documentation": {}
-    },
-    {
-        "label": "prompt",
-        "kind": 5,
-        "importPath": "bot_pr",
-        "description": "bot_pr",
-        "peekOfCode": "prompt = \"\"\"\nAnalise as alterações de código a seguir e gere um relatório detalhado seguindo EXATAMENTE este formato:\n**Feature:** [Título resumido da funcionalidade ou alteração principal]\n**Descrição:**\n[Breve explicação do que foi implementado ou alterado]\n**Resumo:**\n[Resumo técnico das principais mudanças implementadas]\n**Descrição do problema:**\n[Contextualize o problema ou necessidade antes da alteração]\n**Solução implementada:**",
-        "detail": "bot_pr",
         "documentation": {}
     },
     {
@@ -288,7 +154,7 @@
         "kind": 5,
         "importPath": "constants",
         "description": "constants",
-        "peekOfCode": "HELP_SECTIONS = {\n    \"USAGE\": \"📋 USO:\",\n    \"OPTIONS\": \"🔧 OPÇÕES:\",\n    \"EXAMPLES\": \"✨ EXEMPLOS:\",\n    \"SETUP\": \"🔑 CONFIGURAÇÃO:\",\n    \"NOTE\": \"💡 NOTA:\"\n}\nOPTION_DESCRIPTIONS = {\n    \"BRANCH\": \"Gera um nome de branch antes de fazer commit\",\n    \"PR\": \"Abre pull request no navegador após push\",",
+        "peekOfCode": "HELP_SECTIONS = {\n    \"USAGE\": \"📋 USO:\",\n    \"OPTIONS\": \"🔧 OPÇÕES:\",\n    \"EXAMPLES\": \"✨ EXEMPLOS:\",\n    \"SETUP\": \"🔑 CONFIGURAÇÃO:\",\n    \"NOTE\": \"💡 NOTA:\"\n}\nOPTION_DESCRIPTIONS = {\n    \"BRANCH\": \"Gera um nome de branch antes de fazer commit\",\n    \"PR\": \"Cria pull request automaticamente ou abre no navegador\",",
         "detail": "constants",
         "documentation": {}
     },
@@ -297,7 +163,7 @@
         "kind": 5,
         "importPath": "constants",
         "description": "constants",
-        "peekOfCode": "OPTION_DESCRIPTIONS = {\n    \"BRANCH\": \"Gera um nome de branch antes de fazer commit\",\n    \"PR\": \"Abre pull request no navegador após push\",\n    \"VERSION\": \"Mostra informações da versão\",\n    \"HELP\": \"Mostra esta mensagem de ajuda\"\n}\nEXAMPLE_DESCRIPTIONS = {\n    \"COMMIT_ONLY\": \"Gera apenas mensagem de commit\",\n    \"BRANCH_COMMIT\": \"Gera branch + mensagem de commit\", \n    \"FULL_WORKFLOW\": \"Fluxo completo: branch + commit + push + PR\"",
+        "peekOfCode": "OPTION_DESCRIPTIONS = {\n    \"BRANCH\": \"Gera um nome de branch antes de fazer commit\",\n    \"PR\": \"Cria pull request automaticamente ou abre no navegador\",\n    \"VERSION\": \"Mostra informações da versão\",\n    \"HELP\": \"Mostra esta mensagem de ajuda\"\n}\nEXAMPLE_DESCRIPTIONS = {\n    \"COMMIT_ONLY\": \"Gera apenas mensagem de commit\",\n    \"BRANCH_COMMIT\": \"Gera branch + mensagem de commit\", \n    \"FULL_WORKFLOW\": \"Fluxo completo: branch + commit + push + PR\"",
         "detail": "constants",
         "documentation": {}
     },
@@ -333,7 +199,7 @@
         "kind": 2,
         "importPath": "main",
         "description": "main",
-        "peekOfCode": "def show_help():\n    print(f\"\"\"🤖 {COMMAND_NAME.title()} v{VERSION} - Assistente de Git com IA\n{HELP_SECTIONS[\"USAGE\"]}\n  {COMMAND_NAME} [OPÇÕES]\n{HELP_SECTIONS[\"OPTIONS\"]}\n  -b, --branch         Cria uma nova branch\n  -c, --commit         Gera e executa commit\n  --pr                 {OPTION_DESCRIPTIONS[\"PR\"]}\n  -v, --version        {OPTION_DESCRIPTIONS[\"VERSION\"]}\n  --help               {OPTION_DESCRIPTIONS[\"HELP\"]}",
+        "peekOfCode": "def show_help():\n    print(f\"\"\"🤖 {COMMAND_NAME.title()} v{VERSION} - Assistente de Git com IA\n{HELP_SECTIONS[\"USAGE\"]}\n  {COMMAND_NAME} [OPÇÕES]\n{HELP_SECTIONS[\"OPTIONS\"]}\n  -b, --branch         Cria uma nova branch\n  -c, --commit         Gera e executa commit\n  -pr, --pull-request  {OPTION_DESCRIPTIONS[\"PR\"]}\n  -v, --version        {OPTION_DESCRIPTIONS[\"VERSION\"]}\n      -h, --help           {OPTION_DESCRIPTIONS[\"HELP\"]}",
         "detail": "main",
         "documentation": {}
     },
@@ -459,7 +325,7 @@
         "kind": 2,
         "importPath": "main",
         "description": "main",
-        "peekOfCode": "def main():\n    parser = argparse.ArgumentParser(description=\"Assistente de fluxo de trabalho Git com IA\", add_help=False)\n    parser.add_argument(\"--branch\", \"-b\", action=\"store_true\", help=\"Cria uma nova branch\")\n    parser.add_argument(\"--commit\", \"-c\", action=\"store_true\", help=\"Gera e executa commit\")\n    parser.add_argument(\"--pr\", action=\"store_true\", help=OPTION_DESCRIPTIONS[\"PR\"])\n    parser.add_argument(\"--version\", \"-v\", \"--v\", \"-version\", action=\"store_true\", help=OPTION_DESCRIPTIONS[\"VERSION\"])\n    parser.add_argument(\"--help\", action=\"store_true\", help=OPTION_DESCRIPTIONS[\"HELP\"])\n    args = parser.parse_args()\n    # Handle help and version first\n    if args.help:",
+        "peekOfCode": "def main():\n    parser = argparse.ArgumentParser(description=\"Assistente de fluxo de trabalho Git com IA\", add_help=False)\n    parser.add_argument(\"--branch\", \"-b\", action=\"store_true\", help=\"Cria uma nova branch\")\n    parser.add_argument(\"--commit\", \"-c\", action=\"store_true\", help=\"Gera e executa commit\")\n    parser.add_argument(\"--pull-request\", \"-pr\", action=\"store_true\", help=OPTION_DESCRIPTIONS[\"PR\"])\n    parser.add_argument(\"--version\", \"-v\", \"--v\", \"-version\", action=\"store_true\", help=OPTION_DESCRIPTIONS[\"VERSION\"])\n    parser.add_argument(\"--help\", \"-h\", action=\"store_true\", help=OPTION_DESCRIPTIONS[\"HELP\"])\n    args = parser.parse_args()\n    # Handle help and version first\n    if args.help:",
         "detail": "main",
         "documentation": {}
     },
