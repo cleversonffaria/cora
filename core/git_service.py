@@ -40,7 +40,11 @@ class GitService:
             branches = []
             for line in branches_output.split('\n'):
                 branch = line.strip().replace('*', '').strip()
-                if branch and '/' not in branch:
+                if branch and (
+                    '/' not in branch or
+                    branch.startswith('feat/rebrand') or
+                    branch.startswith('feat/marketplace')
+                ):
                     branches.append(branch)
             return branches
         except:
