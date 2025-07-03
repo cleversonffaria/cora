@@ -20,7 +20,7 @@ class GitHubService:
     
     def create_pr_with_cli(self, base_branch, current_branch, description):
         try:
-            title = f'"PR: {current_branch} to {base_branch}"'
+            title = f"PR: {current_branch} to {base_branch}"
             
             with tempfile.NamedTemporaryFile(mode='w', suffix='.md', delete=False, encoding='utf-8') as temp_file:
                 temp_file.write(description)
