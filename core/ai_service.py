@@ -36,16 +36,17 @@ class AIService:
     
     def generate_commit_message(self, diff, temperature=DEFAULT_TEMPERATURE, history=None):
         prompt = (
-            "You are an assistant that generates commit messages in the conventional commits format.\n"
-            "Based on the git diff below, identify the MOST SIGNIFICANT change and generate a short, clear commit message in English about it.\n"
-            "Focus on the main purpose of the change.\n"
-            "Use prefixes like feat, fix, chore, refactor, test, docs, style, perf, ci, build, revert etc.\n"
-            "Only the message, with no extra explanations or remarks.\n"
-            "Generate ONLY ONE commit message, with no line breaks or special formatting.\n"
-            "Nothing but a commit message."
+            "Você é um assistente que gera mensagens de commit no formato conventional commits.\n"
+            "Com base no diff do git abaixo, identifique a MUDANÇA MAIS SIGNIFICATIVA e gere uma mensagem de commit curta e clara em português sobre ela.\n"
+            "Foque no propósito principal da mudança.\n"
+            "Use prefixos como feat, fix, chore, refactor, test, docs, style, perf, ci, build, revert etc.\n"
+            "Apenas a mensagem, sem explicações extras ou observações.\n"
+            "Gere APENAS UMA mensagem de commit, sem quebras de linha ou formatação especial.\n"
+            "TUDO DEVE ESTAR EM MINÚSCULO.\n"
+            "Nada além de uma mensagem de commit."
         )
         if history:
-            history_prompt = "\n\nCrucially, provide a different and unique suggestion from the ones I have already rejected:\n- "
+            history_prompt = "\n\nCrucialmente, forneça uma sugestão diferente e única das que já rejeitei:\n- "
             history_prompt += "\n- ".join(history)
             prompt += history_prompt
 
