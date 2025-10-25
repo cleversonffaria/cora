@@ -40,6 +40,7 @@ class AIService:
             "Com base no diff do git abaixo, identifique a MUDANÇA MAIS SIGNIFICATIVA e gere uma mensagem de commit curta e clara em português sobre ela.\n"
             "Foque no propósito principal da mudança.\n"
             "Use prefixos como feat, fix, chore, refactor, test, docs, style, perf, ci, build, revert etc.\n"
+            "OBRIGATÓRIO: Sempre use dois pontos após o prefixo (ex: feat:, fix:, chore:).\n"
             "Apenas a mensagem, sem explicações extras ou observações.\n"
             "Gere APENAS UMA mensagem de commit, sem quebras de linha ou formatação especial.\n"
             "TUDO DEVE ESTAR EM MINÚSCULO.\n"
